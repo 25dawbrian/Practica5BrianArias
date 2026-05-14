@@ -73,7 +73,7 @@ public class Programa {
 				break;
 			}
 
-		} while (opcion != 9);
+		} while (opcion != 8);
 	}
 
 }
