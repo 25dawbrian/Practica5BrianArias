@@ -13,6 +13,7 @@ public class Ordenadores {
 	protected int almacenamiento;
 	protected String numeroSerie;
 	protected String etiqueta;
+	protected boolean asignado;
 
 	public Ordenadores() {
 		this.tipoOrdenador = "";
@@ -23,10 +24,11 @@ public class Ordenadores {
 		this.almacenamiento=0;
 		this.numeroSerie="";
 		this.etiqueta="";
+		this.asignado=false;
 	}
-
+	
 	public Ordenadores(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
-			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta) {
+			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, boolean asignado) {
 		this.tipoOrdenador=tipoOrdenador;
 		this.modelo = modelo;
 		this.procesador = procesador;
@@ -35,10 +37,18 @@ public class Ordenadores {
 		this.almacenamiento = almacenamiento;
 		this.numeroSerie = numeroSerie;
 		this.etiqueta = etiqueta;
-
+		this.asignado=false;
 	}
 	
 	
+	public boolean isAsignado() {
+		return asignado;
+	}
+
+	public void setAsignado(boolean asignado) {
+		this.asignado = asignado;
+	}
+
 	public String getTipoOrdenador() {
 		return tipoOrdenador;
 	}
@@ -113,6 +123,7 @@ public class Ordenadores {
 			   "\nAlmacenamiento: " + almacenamiento + " GB" +
 			   "\nNumero de serie: " + numeroSerie +
 			   "\nEtiqueta: " + etiqueta +
+			   "\nAsignador: " + asignado +
 			   "\n===============================\n";
 	}
 

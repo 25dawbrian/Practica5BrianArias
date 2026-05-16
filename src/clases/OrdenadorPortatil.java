@@ -14,7 +14,7 @@ public class OrdenadorPortatil extends Ordenadores {
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, double pulgadas,
 			double autonomia, boolean webcam) {
 		super(tipoOrdenador, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie,
-				etiqueta);
+				etiqueta, false);
 		this.tipoOrdenador = "Portatil";
 		this.pulgadas = pulgadas;
 		this.autonomia = autonomia;
@@ -60,6 +60,7 @@ public class OrdenadorPortatil extends Ordenadores {
 			   "\nWebcam: " + webcam +
 			   "\nNumero de serie: " + numeroSerie +
 			   "\nEtiqueta: " + etiqueta +
+			   "\nAsignado: "+ asignado +
 			   "\n===============================\n";
 	}
 

@@ -20,7 +20,7 @@ public class GestorOrdenadores {
 		listaUsuarios = new ArrayList<Usuarios>();
 		listaDepartamentos = new ArrayList<>();
 	}
-	
+
 	/**
 	 * Metodo para tener datos en el programa
 	 * 
@@ -75,8 +75,8 @@ public class GestorOrdenadores {
 		do {
 			System.out.print("Introduce el nombre: ");
 			nombre = input.nextLine();
-			nombreCorrecto = Usuarios.validarNombre(nombre); 
-			/**Llamada al metodo ValidarNombre para solo introducir letras */
+			nombreCorrecto = Usuarios.validarNombre(nombre);
+			/** Llamada al metodo ValidarNombre para solo introducir letras */
 			if (!nombreCorrecto) {
 				System.out.println("Error: solo se permiten letras");
 			}
@@ -105,7 +105,10 @@ public class GestorOrdenadores {
 					System.out.print("Introduce el email: ");
 					email = input.nextLine();
 					emailValido = Usuarios.validarEmail(email);
-					/**Llamada al metodo ValidarEmail para que cumpla con el formato "nombre@gmail.com" */
+					/**
+					 * Llamada al metodo ValidarEmail para que cumpla con el formato
+					 * "nombre@gmail.com"
+					 */
 					if (!emailValido) {
 						System.out.println("Formato incorrecto");
 					}
@@ -113,7 +116,10 @@ public class GestorOrdenadores {
 				break;
 			case 2:
 				email = Usuarios.generarEmailEmpresa(nombre, apellidos);
-				/**Llamada al metodo generarEmailEmpresa para generar email mediante nombre y apellidos */
+				/**
+				 * Llamada al metodo generarEmailEmpresa para generar email mediante nombre y
+				 * apellidos
+				 */
 				System.out.println("Email generado: " + email);
 				break;
 
@@ -165,18 +171,24 @@ public class GestorOrdenadores {
 		} while (opcionDepartamento < 1 || opcionDepartamento > 3);
 
 		// mostrar ordenadores disponibles
-		listarOrdenadores();
+		ArrayList<Ordenadores> disponibles = ordenadoresDisponibles();
 
 		// asignacion del ordenador
 		boolean opcionCorrecta = false;
 		do {
 			try {
-				System.out.print("Selecciona un ordenador de los que se muestran disponibles: ");
+				System.out.print("Selecciona un ordenador disponible: ");
 				int opcionOrdenador = input.nextInt();
-				nuevoUsuario.setOrdenador(listaOrdenadores.get(opcionOrdenador - 1));
-				opcionCorrecta = true;
+				input.nextLine();
+				if (opcionOrdenador >= 1 && opcionOrdenador <= disponibles.size()) {
+					nuevoUsuario.setOrdenador(disponibles.get(opcionOrdenador - 1));
+					disponibles.get(opcionOrdenador - 1).setAsignado(true);
+					opcionCorrecta = true;
+				} else {
+					System.err.println("Error: ordenador no disponible");
+				}
 			} catch (Exception e) {
-				System.err.println("Error: debes seleccionar un ordenador disponible(nº).");
+				System.err.println("Error: debes introducir un numero");
 				input.nextLine();
 			}
 		} while (!opcionCorrecta);
@@ -185,6 +197,7 @@ public class GestorOrdenadores {
 		listaUsuarios.add(nuevoUsuario);
 		System.out.println("Usuario añadido correctamente");
 	}
+
 	/**
 	 * Alta usuario por codigo
 	 * 
@@ -195,18 +208,15 @@ public class GestorOrdenadores {
 	 * @param edad
 	 * @param ordenador
 	 */
-
 	public void altaUsuario(String nombre, String apellidos, Departamentos departamento, String email, int edad,
 			Ordenadores ordenador) {
-
+		ordenador.setAsignado(true);
 		Usuarios nuevoUsuario = new Usuarios(nombre, apellidos, departamento, email, edad, ordenador);
 		listaUsuarios.add(nuevoUsuario);
 
 	}
 
 	public Ordenadores pedirDatosGenerales() {
-		String tipoOrdenador = "";
-
 		System.out.print("Etiqueta: ");
 		String etiqueta = input.nextLine();
 
@@ -226,7 +236,6 @@ public class GestorOrdenadores {
 		 * Introduccion de la cantidad de memoria RAM controlando la excepcion para
 		 * introducir numeros unicamente
 		 */
-
 		int capacidadMemoriaRAM = 0;
 		boolean ramCorrecta = false;
 		do {
@@ -245,7 +254,6 @@ public class GestorOrdenadores {
 		 * Introduccion de la cantidad del almacenamiento controlando la excepcion para
 		 * introducir numeros unicamente
 		 */
-
 		int almacenamiento = 0;
 		boolean almacenamientoCorrecto = false;
 		do {
@@ -258,14 +266,14 @@ public class GestorOrdenadores {
 				input.nextLine();
 			}
 		} while (!almacenamientoCorrecto);
-		Ordenadores ordenador = new Ordenadores(tipoOrdenador, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM,
-				almacenamiento, numeroSerie, etiqueta);
+		Ordenadores ordenador = new Ordenadores(null, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM,
+				almacenamiento, numeroSerie, etiqueta, false);
 		return ordenador;
 	}
 
-	/** 
-	 * alta ordenador portatil por teclado 
-	 * pedimos datos generales y despues los especificos de portatil
+	/**
+	 * alta ordenador portatil por teclado pedimos datos generales y despues los
+	 * especificos de portatil
 	 *
 	 */
 	public void altaOrdenadorTorre() {
@@ -302,7 +310,8 @@ public class GestorOrdenadores {
 	}
 
 	/**
-	 *  Alta Ordenador Torre por codigo
+	 * Alta Ordenador Torre por codigo
+	 * 
 	 * @param tipoOrdenador
 	 * @param modelo
 	 * @param procesador
@@ -324,9 +333,9 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorTorre);
 	}
 
-	/** 
-	 * alta ordenador portatil por teclado 
-	 * pedimos datos generales y despues los especificos de sobremesa
+	/**
+	 * alta ordenador portatil por teclado pedimos datos generales y despues los
+	 * especificos de sobremesa
 	 *
 	 */
 	public void altaOrdenadorSobremesa() {
@@ -342,10 +351,11 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
 	}
 
-	/**Alta Ordenador sobremesa por codigo 
+	/**
+	 * Alta Ordenador sobremesa por codigo
 	 * 
 	 * 
-	 * */
+	 */
 	public void altaOrdenadorSobremesa(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, String tipoCaja) {
 		OrdenadorSobremesa nuevoOrdenadorSobremesa = new OrdenadorSobremesa(tipoOrdenador, modelo, procesador,
@@ -353,12 +363,12 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
 	}
 
-	/** 
-	 * alta ordenador portatil por teclado 
-	 * pedimos datos generales y despues los especificos de portatil
+	/**
+	 * alta ordenador portatil por teclado pedimos datos generales y despues los
+	 * especificos de portatil
 	 *
 	 */
-	
+
 	public void altaOrdenadorPortatil() {
 		Ordenadores generales = pedirDatosGenerales();
 
@@ -399,6 +409,23 @@ public class GestorOrdenadores {
 				tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie, etiqueta, pulgadas, autonomia,
 				webcam);
 		listaOrdenadores.add(nuevoOrdenadorPortatil);
+	}
+	
+	/**
+	 * Metodo para mostrar los ordenadores que estan sin asignar
+	 * @return
+	 */
+	public ArrayList<Ordenadores> ordenadoresDisponibles() {
+		ArrayList<Ordenadores> disponibles = new ArrayList<>();
+		int contador = 1;
+		for (Ordenadores ord : listaOrdenadores) {
+			if (!ord.isAsignado()) {
+				disponibles.add(ord);
+				System.out.println("Ordenador " + contador + ".- " + ord);
+				contador++;
+			}
+		}
+		return disponibles;
 	}
 
 	/**
@@ -669,6 +696,9 @@ public class GestorOrdenadores {
 		while (iteradorUsuarios.hasNext()) {
 			Usuarios usuario = iteradorUsuarios.next();
 			if (usuario.getNombre().equalsIgnoreCase(nombre)) {
+				if (usuario.getOrdenador() != null) {
+					usuario.getOrdenador().setAsignado(false);
+				}
 				iteradorUsuarios.remove();
 				System.out.println("El usuario: [" + nombre + "] ha sido dado de baja de la empresa.");
 				usuarioExiste = true;
@@ -689,6 +719,7 @@ public class GestorOrdenadores {
 		for (Usuarios ord : listaUsuarios) {
 			if (ord.getOrdenador() != null && ord.getOrdenador().equals(ordenador)) {
 				ord.setOrdenador(null);
+				ordenador.setAsignado(false);
 			}
 		}
 	}

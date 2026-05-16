@@ -13,7 +13,7 @@ public class OrdenadorTorre extends Ordenadores {
 			int capacidadMemoriaRAM, int almacenamiento, String refrigeracion, String numeroSerie, String etiqueta,
 			int potenciaFuenteAlimentacion) {
 		super(tipoOrdenador, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie,
-				etiqueta);
+				etiqueta, false);
 		this.tipoOrdenador="Torre";
 		this.refrigeracion = refrigeracion;
 		this.potenciaFuenteAlimentacion = potenciaFuenteAlimentacion;
@@ -49,6 +49,7 @@ public class OrdenadorTorre extends Ordenadores {
 			   "\nRefrigeracion: "+ refrigeracion +
 			   "\nNumero de serie: " + numeroSerie +
 			   "\nEtiqueta: " + etiqueta +
+			   "\nAsignado: " + asignado +
 			   "\n===============================\n";
 	}
 

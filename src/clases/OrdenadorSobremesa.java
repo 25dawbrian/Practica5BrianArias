@@ -11,7 +11,7 @@ public class OrdenadorSobremesa extends Ordenadores {
 	public OrdenadorSobremesa(String tipoOrdenador,String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, String tipoCaja) {
 		super(tipoOrdenador, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie,
-				etiqueta);
+				etiqueta, false);
 		this.tipoOrdenador="Sobremesa";
 		this.tipoCaja = tipoCaja;
 	}
@@ -36,6 +36,7 @@ public class OrdenadorSobremesa extends Ordenadores {
 			   "\nTipo de caja: "+ tipoCaja +
 			   "\nNumero de serie: " + numeroSerie +
 			   "\nEtiqueta: " + etiqueta +
+			   "\nAsignado: " + asignado +
 			   "\n===============================\n";
 	}
 
