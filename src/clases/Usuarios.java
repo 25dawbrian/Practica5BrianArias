@@ -1,5 +1,10 @@
 package clases;
-
+	/**
+	 * clase Usuarios
+	 * contiene los objetos Departamento y Ordenadores
+	 * @author brian
+	 *
+	 */
 public class Usuarios {
 	private String nombre;
 	private String apellidos;
@@ -76,9 +81,14 @@ public class Usuarios {
 
 	@Override
 	public String toString() {
-
+		/**
+		 * obtenemos la etiqueta del ordenador
+		 * y la mostramos.
+		 * Se mostrara "Sin asignar"
+		 * si el usuario no tiene ordenador asignado
+		 */
 		String etiquetaOrdenador = "Sin asignar";
-
+		
 		if(ordenador != null) {
 			etiquetaOrdenador = ordenador.getEtiqueta();
 		}
@@ -91,6 +101,14 @@ public class Usuarios {
 			   "\nOrdenador asignado: " + etiquetaOrdenador +
 			   "\n=============================\n";
 	}
+	
+	/**
+	 * 
+	 * metodo validaEmail para validar el email introducido por teclado
+	 * debe contener una "@" y un "." despues del "@"
+	 * @param email
+	 * @return
+	 */
 	public static boolean validarEmail(String email) {
 		int posArroba = 0;
 	    int posPunto = 0;
@@ -124,6 +142,12 @@ public class Usuarios {
 	    }
 	}
 	
+	/**
+	 * Metodo para validar el nombre introducido por teclado
+	 * solo permite meter letras
+	 * @param nombre
+	 * @return
+	 */
 	public static boolean validarNombre(String nombre) {
 	    boolean correcto = true;
 	    for(int i = 0; i < nombre.length(); i++) {
@@ -136,7 +160,15 @@ public class Usuarios {
 	    }
 	    return correcto;
 	}
-	
+	/**
+	 * Metodo para generar email automatico mediante
+	 * nombre y apellidos introducidos, añadiendo el dominio
+	 * "@briancompany.com"
+	 * 
+	 * @param nombre
+	 * @param apellidos
+	 * @return
+	 */
 	public static String generarEmailEmpresa(String nombre, String apellidos) {
 		return nombre.toLowerCase() + apellidos.toLowerCase() + "@briancompany.com";
 	}

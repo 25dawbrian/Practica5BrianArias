@@ -1,5 +1,10 @@
 package clases;
-
+/**
+ * clase OrdenadorTorre
+ * clase hija que hereda de Ordenadores los atributos generales.
+ * Contiene atributos propios
+ * @author Brian Arias
+ */
 public class OrdenadorTorre extends Ordenadores {
 	private String refrigeracion;
 	private int potenciaFuenteAlimentacion;

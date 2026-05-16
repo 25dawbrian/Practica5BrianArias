@@ -2,17 +2,25 @@ package menus;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * Clase Menus
+ * Aqui gestionaremos los diferentes menus delp programa,
+ * cada uno metido en un metodo
+ */
 import clases.GestorOrdenadores;
 
 public class Menus {
+	
 	Scanner input = new Scanner(System.in);
 	private GestorOrdenadores gestor;
 
 	public Menus(GestorOrdenadores gestor) {
 		this.gestor = gestor;
 	}
-
+	
+	/**
+	 * Menu de altas
+	 */
 	public void menuAltas() {
 		int opcionAlta;
 		do {
@@ -52,7 +60,10 @@ public class Menus {
 
 		} while (opcionAlta != 4);
 	}
-
+	
+	/**
+	 * Menu de listar
+	 */
 	public void menuListar() {
 		int opcionListar;
 		do {
@@ -98,7 +109,10 @@ public class Menus {
 
 		} while (opcionListar != 6);
 	}
-
+	
+	/**
+	 * Menu de buscar usuario
+	 */
 	public void menuBuscarUsuario() {
 		int opcionBuscarUsuario = 0;
 		do {
@@ -134,7 +148,10 @@ public class Menus {
 			}
 		} while (opcionBuscarUsuario != 3);
 	}
-
+	
+	/**
+	 * Menu de buscar ordenador
+	 */
 	public void menuBuscarOrdenador() {
 		int opcionBuscarOrdenador = 0;
 		do {

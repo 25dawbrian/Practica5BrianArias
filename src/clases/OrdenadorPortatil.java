@@ -1,5 +1,10 @@
 package clases;
-
+/**
+ * clase OrdenadorPortatil
+ * clase hija que hereda de Ordenadores los atributos generales.
+ * Contiene atributos propios
+ * @author Brian Arias
+ */
 public class OrdenadorPortatil extends Ordenadores {
 	private double pulgadas;
 	private double autonomia;

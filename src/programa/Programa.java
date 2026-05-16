@@ -8,7 +8,6 @@ public class Programa {
 	static Scanner input = new Scanner(System.in);
 	/**
 	 * @author Brian Arias
-	 * 
 	 */
 	public static void main(String[] args) {
 		GestorOrdenadores gestor = new GestorOrdenadores();
@@ -16,7 +15,6 @@ public class Programa {
 
 		/**
 		 * Carga de datos iniciales :
-		 * Od
 		 */
 		gestor.datosIniciales();
 

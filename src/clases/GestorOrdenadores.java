@@ -6,6 +6,10 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class GestorOrdenadores {
+	/**
+	 * En esta clase almacenamos los metodos y funcionalidades del programaç
+	 * Metodos: altas, buscar, eliminar, listar y desasignar
+	 */
 	Scanner input = new Scanner(System.in);
 	private ArrayList<Ordenadores> listaOrdenadores;
 	private ArrayList<Usuarios> listaUsuarios;

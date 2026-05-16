@@ -1,5 +1,9 @@
 package clases;
-
+/**
+ * clase Ordenadores
+ * clase padre con los atributos generales de todos los ordenadores
+ * @author Brian Arias
+ */
 public class Ordenadores {
 	protected String tipoOrdenador;
 	protected String modelo;

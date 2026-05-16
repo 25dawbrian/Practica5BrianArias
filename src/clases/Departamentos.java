@@ -1,7 +1,10 @@
 package clases;
 
 public class Departamentos {
-
+	/**
+	 * Clase Departamentos
+	 * Este se le asignara a cada usuario
+	 */
 	private String nombreDepartamento;
 
 	public Departamentos(String nombreDepartamento) {
