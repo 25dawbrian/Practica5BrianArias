@@ -1,5 +1,6 @@
 package menus;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import clases.GestorOrdenadores;
@@ -81,13 +82,11 @@ public class Menus {
 				gestor.listarPortatiles();
 				break;
 			case 4:
-				System.out.println("4.-Listar por departamento");
 				gestor.listarOrdenadoresPorDepartamento();
 				break;
 			case 5:
 				System.out.println("5.-Listar todos los ordenadores");
 				gestor.listarOrdenadores();
-				
 				break;
 			case 6:
 				System.out.println("Volver al menu principal");
@@ -101,7 +100,7 @@ public class Menus {
 	}
 
 	public void menuBuscarUsuario() {
-		int opcionBuscarUsuario;
+		int opcionBuscarUsuario = 0;
 		do {
 			System.out.println("============================================");
 			System.out.println("||-----------MENU BUSCAR USUARIO----------||");
@@ -111,8 +110,12 @@ public class Menus {
 			System.out.println("||      3.-Volver al menu principal.      ||");
 			System.out.println("============================================");
 			System.out.print("Selecciona una accion: ");
-			opcionBuscarUsuario = input.nextInt();
-
+			try {
+				opcionBuscarUsuario = input.nextInt();
+			} catch (InputMismatchException e) {
+				System.err.println("Error: debes introducir un numero");
+				input.nextLine();
+			}
 			switch (opcionBuscarUsuario) {
 			case 1:
 				System.out.println("1.-Buscar por nombre");
@@ -133,7 +136,7 @@ public class Menus {
 	}
 
 	public void menuBuscarOrdenador() {
-		int opcionBuscarOrdenador;
+		int opcionBuscarOrdenador = 0;
 		do {
 			System.out.println("============================================");
 			System.out.println("||----------MENU BUSCAR ORDENADOR----------||");
@@ -143,7 +146,12 @@ public class Menus {
 			System.out.println("||      3.-Volver al menu principal.       ||");
 			System.out.println("=============================================");
 			System.out.print("Selecciona una accion: ");
-			opcionBuscarOrdenador = input.nextInt();
+			try {
+				opcionBuscarOrdenador = input.nextInt();
+			} catch (InputMismatchException e) {
+				System.err.println("Error: debes introducir un numero");
+				input.nextLine();
+			}
 			switch (opcionBuscarOrdenador) {
 			case 1:
 				System.out.println("1.-Buscar por etiqueta");

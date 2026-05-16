@@ -1,6 +1,7 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -209,7 +210,7 @@ public class GestorOrdenadores {
 				System.out.print("Cantidad de RAM (GB): ");
 				capacidadMemoriaRAM = input.nextInt();
 				ramCorrecta = true;
-			} catch (Exception e) {
+			} catch (InputMismatchException e) {
 				System.out.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
@@ -227,7 +228,7 @@ public class GestorOrdenadores {
 				System.out.print("Cantidad de almacenamiento (GB): ");
 				almacenamiento = input.nextInt();
 				almacenamientoCorrecto = true;
-			} catch (Exception e) {
+			} catch (InputMismatchException e) {
 				System.out.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
@@ -251,7 +252,7 @@ public class GestorOrdenadores {
 				System.out.print("Potencia de la fuente de alimentacion (W): ");
 				potenciaFuenteAlimentacion = input.nextInt();
 				fuenteCorrecta = true;
-			} catch (Exception e) {
+			} catch (InputMismatchException e) {
 				System.out.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
@@ -372,42 +373,59 @@ public class GestorOrdenadores {
 	}
 
 	public void listarOrdenadoresPorDepartamento() {
-		int opcionDepartamento;
-		System.out.println("1. Financiero");
-		System.out.println("2. Diseño 3D");
-		System.out.println("3. Marketing");
-		System.out.print("Selecciona un departamento: ");
-		opcionDepartamento = input.nextInt();
-		input.nextLine();
-
-		Departamentos departamentoSeleccionado = null;
-
-		switch (opcionDepartamento) {
-		case 1:
-			departamentoSeleccionado = listaDepartamentos.get(0);
-			break;
-		case 2:
-			departamentoSeleccionado = listaDepartamentos.get(1);
-			break;
-		case 3:
-			departamentoSeleccionado = listaDepartamentos.get(2);
-			break;
-		default:
-			System.out.println("Opcion incorrecta");
-			return;
-		}
-
-		System.out.println("Ordenadores del departamento de " + departamentoSeleccionado.getNombreDepartamento());
-		for (Usuarios usuario : listaUsuarios) {
-			if (usuario.getDepartamento().equals(departamentoSeleccionado)) {
-				System.out.println("_______________________");
-				System.out.println("Ordendador de " + usuario.getNombre() + " " + usuario.getApellidos() + "|");
-				System.out.println(usuario.getOrdenador());
-
+		int opcionDepartamento = 0;
+		boolean opcionCorrecta;
+		do {
+			opcionCorrecta = false;
+			System.out.println("Listar por departamento");
+			System.out.println("1. Financiero");
+			System.out.println("2. Diseño 3D");
+			System.out.println("3. Marketing");
+			System.out.println("4. Salir");
+			System.out.print("Selecciona un departamento: ");
+			try {
+				opcionDepartamento = input.nextInt();
+				input.nextLine();
+				opcionCorrecta = true;
+			} catch (InputMismatchException e) {
+				System.err.println("Error: debes introducir numeros.");
+				input.nextLine();
 			}
-
-		}
-
+			if (opcionCorrecta) {
+				Departamentos departamentoSeleccionado = null;
+				switch (opcionDepartamento) {
+				case 1:
+					departamentoSeleccionado = listaDepartamentos.get(0);
+					break;
+				case 2:
+					departamentoSeleccionado = listaDepartamentos.get(1);
+					break;
+				case 3:
+					departamentoSeleccionado = listaDepartamentos.get(2);
+					break;
+				case 4:
+					System.out.println("Saliendo...");
+					break;
+				default:
+					System.out.println("Opcion incorrecta");
+				}
+				if (departamentoSeleccionado != null) {
+					System.out.println(
+							"Ordenadores del departamento de " + departamentoSeleccionado.getNombreDepartamento());
+					boolean hayOrdenadores = false;
+					for (Usuarios usuario : listaUsuarios) {
+						if (usuario.getDepartamento().equals(departamentoSeleccionado)) {
+							hayOrdenadores = true;
+							System.out.println("Usuario: " + usuario.getNombre() + " " + usuario.getApellidos());
+							System.out.println(usuario.getOrdenador());
+						}
+					}
+					if (!hayOrdenadores) {
+						System.out.println("No hay ordenadores asignados en este departamento.");
+					}
+				}
+			}
+		} while (opcionDepartamento != 4);
 	}
 
 	// listar usuarios
@@ -490,7 +508,14 @@ public class GestorOrdenadores {
 		return null;
 	}
 
-	// buscar ordendador por numero de serie
+	/** 
+	 * Metodo para buscar ordenador por numero de serie:
+	 * introducimos por teclado el numero de serie,
+	 * hacemos un booleano en false por defecto para
+	 * luego comprobar si se ha encontrado
+	 * 
+	 * 
+	 * */
 	public void buscarOrdenadorPorNumeroSerie() {
 		System.out.print("Introduce el numero de serie del ordenador:");
 		String buscarNumeroSerie = input.nextLine();
@@ -507,7 +532,14 @@ public class GestorOrdenadores {
 		}
 	}
 
-	// eliminar usuario
+	/**
+	 * 
+	 * creamos iterador para recorer de forma segura el arrayList Usuarios.
+	 * mientras haya usuarios (.hasNext)seguira recorriendo (.next)
+	 * y despues con .next avanzamos hacia el siguiente usuario
+	 * 
+	 */
+	
 	public void darDeBajaUsuario() {
 		System.out.print("Introduce el nombre del usuario que quieras dar de baja: ");
 		String nombre = input.nextLine();
@@ -522,42 +554,64 @@ public class GestorOrdenadores {
 			}
 		}
 		if (!usuarioExiste) {
-			System.out.println("El usuario " + nombre + " no existe");
+			System.out.println("El usuario [" + nombre + "] no existe");
 		}
 	}
 
-	// eliminar ordenador
+	/**
+	 *  Metodo para desasignar a un usuario su ordenador: Recorremos
+	 *  el arrayList listaUsuarios, si un usuario tiene un ordenador
+	 *  y es igual al objeto Ordenadores recibido pasara a ser null
+	 * 
+	 */
+	public void desasignarOrdenadorDeUsuarios(Ordenadores ordenador) {
+		for (Usuarios ord : listaUsuarios) {
+			if (ord.getOrdenador() != null && ord.getOrdenador().equals(ordenador)) {
+				ord.setOrdenador(null);
+			}
+		}
+	}
+
+	/**
+	 * Metodos eliminar Ordenador por la etiqueta recibida: Recorre la lista de
+	 * ordenadores mediante un Iterator para buscar y eliminar un ordenador según su
+	 * etiqueta.
+	 * 
+	 */
 	public void eliminarOrdenadorPorEtiqueta() {
 		System.out.print("Introduce la etiqueta del ordenador: ");
 		String etiqueta = input.nextLine();
-		Ordenadores ordenadorEliminar = null;
-		boolean ordenadorExiste = false;
+		Ordenadores ordenadorEliminar = null; /** Lo dejamos como null ya que no apunta a ningun objeto */
+		boolean ordenadorExiste = false; /** booleano en false para comprobar si el ordenador se ha encontrado */
 
 		Iterator<Ordenadores> iteradorOrdenadores = listaOrdenadores.iterator();
+		/**
+		 * creamos iterador para recorer de forma segura el arrayList Ordenadores.
+		 * mientras haya ordenadores (.hasNext)seguira recorriendo (.next)
+		 * y despues con .next avanzamos hacia el siguiente ordenador
+		 */
 		while (iteradorOrdenadores.hasNext()) {
 			Ordenadores ordenador = iteradorOrdenadores.next();
 			if (ordenador.getEtiqueta().equalsIgnoreCase(etiqueta)) {
 				ordenadorEliminar = ordenador;
 				iteradorOrdenadores.remove();
 
-				System.out
-						.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
+				System.out.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
 				ordenadorExiste = true;
 			}
 		}
+		/**
+		 * Si el ordenador es distinto de true, imprimimos que no existe
+		 */
 		if (!ordenadorExiste) {
-			System.out.println("No existe nigun ordenador con la etiqueta [" + etiqueta + "]");
+			System.out.println("No existe ningun ordenador con la etiqueta [" + etiqueta + "]");
 		}
+		/**
+		 * Si el ordenador no esta vacio, llamamos al metodo desasignar desasignarlos de los usuario al
+		 * haber sido eliminado
+		 */
 		if (ordenadorEliminar != null) {
 			desasignarOrdenadorDeUsuarios(ordenadorEliminar);
-		}
-	}
-
-	public void desasignarOrdenadorDeUsuarios(Ordenadores ordenador) {
-		for (Usuarios ord : listaUsuarios) {
-			if (ord.getOrdenador() != null && ord.getOrdenador().equals(ordenador)) {
-				ord.setOrdenador(null);
-			}
 		}
 	}
 
@@ -570,14 +624,22 @@ public class GestorOrdenadores {
 		System.out.print("Etiqueta del ordenador a asignar: ");
 		String etiquetaPC = input.nextLine();
 
-		// Llamadas a otros métodos
+		/**
+		 * Llamada a los metodos buscarUsuarioNombre y buscarOrdenadorPorEtiqueta para
+		 * comparar los parametros metidos por teclado con los existentes
+		 */
+
 		Usuarios user = buscarUsuarioNombre(usuario);
 		Ordenadores pc = buscarOrdenadorPorEtiqueta(etiquetaPC);
 
 		if (user != null && pc != null) {
-			// Asignamos el objeto Ordenadores al atributo del objeto Usuarios
 			user.setOrdenador(pc);
-			System.out.println("El ordenador " + etiquetaPC + " ha sido asignado a " + usuario);
+			/**
+			 * Asignamos el objeto Ordenadores al atributo del objeto Usuarios si el usuario
+			 * y el pc introducidos por teclado existen
+			 * 
+			 */
+			System.out.println("El ordenador [" + etiquetaPC + "] ha sido asignado a " + usuario);
 		} else {
 			System.out.println("Error: No se encontró el usuario o el ordenador.");
 		}
