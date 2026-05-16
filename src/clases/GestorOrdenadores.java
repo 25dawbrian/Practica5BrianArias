@@ -490,8 +490,7 @@ public class GestorOrdenadores {
 				ordenadorEliminar = ordenador;
 				iteradorOrdenadores.remove();
 
-				System.out
-						.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
+				System.out.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
 				ordenadorExiste = true;
 			}
 		}
