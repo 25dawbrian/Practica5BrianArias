@@ -16,7 +16,11 @@ public class GestorOrdenadores {
 		listaUsuarios = new ArrayList<Usuarios>();
 		listaDepartamentos = new ArrayList<>();
 	}
-
+	
+	/**
+	 * Metodo para tener datos en el programa
+	 * 
+	 */
 	public void datosIniciales() {
 		// damos de alta 2 ordenadores de cada tipo
 		altaOrdenadorTorre("Torre", "Legion T5", "Ryzen 7 7600G", "RTX 4070", 32, 1000, "Liquida", "265EIR",
@@ -49,20 +53,26 @@ public class GestorOrdenadores {
 		altaUsuario("Pepe", "Villanueva", marketing, "pepevillanueva@gmail.com", 43, listaOrdenadores.get(4));
 	}
 
-	// alta departamento
+	/**
+	 * Metodo para dar de alta usuario por codigo
+	 */
 	public void altaDepartamento(String nombreDepartamento) {
 		Departamentos nuevoDepartamento = new Departamentos(nombreDepartamento);
 		listaDepartamentos.add(nuevoDepartamento);
 	}
 
-	// alta usuario por teclado
+	/**
+	 * Metodo para dar de alta usuario por teclado
+	 * 
+	 */
 	public void altaUsuario() {
 		String nombre;
 		boolean nombreCorrecto;
 		do {
 			System.out.print("Introduce el nombre: ");
 			nombre = input.nextLine();
-			nombreCorrecto = Usuarios.validarNombre(nombre);
+			nombreCorrecto = Usuarios.validarNombre(nombre); 
+			/**Llamada al metodo ValidarNombre para solo introducir letras */
 			if (!nombreCorrecto) {
 				System.out.println("Error: solo se permiten letras");
 			}
@@ -91,6 +101,7 @@ public class GestorOrdenadores {
 					System.out.print("Introduce el email: ");
 					email = input.nextLine();
 					emailValido = Usuarios.validarEmail(email);
+					/**Llamada al metodo ValidarEmail para que cumpla con el formato "nombre@gmail.com" */
 					if (!emailValido) {
 						System.out.println("Formato incorrecto");
 					}
@@ -98,6 +109,7 @@ public class GestorOrdenadores {
 				break;
 			case 2:
 				email = Usuarios.generarEmailEmpresa(nombre, apellidos);
+				/**Llamada al metodo generarEmailEmpresa para generar email mediante nombre y apellidos */
 				System.out.println("Email generado: " + email);
 				break;
 
@@ -169,8 +181,17 @@ public class GestorOrdenadores {
 		listaUsuarios.add(nuevoUsuario);
 		System.out.println("Usuario añadido correctamente");
 	}
+	/**
+	 * Alta usuario por codigo
+	 * 
+	 * @param nombre
+	 * @param apellidos
+	 * @param departamento
+	 * @param email
+	 * @param edad
+	 * @param ordenador
+	 */
 
-	// alta usuario
 	public void altaUsuario(String nombre, String apellidos, Departamentos departamento, String email, int edad,
 			Ordenadores ordenador) {
 
@@ -238,7 +259,11 @@ public class GestorOrdenadores {
 		return ordenador;
 	}
 
-	// alta Ordenador Torre por teclado
+	/** 
+	 * alta ordenador portatil por teclado 
+	 * pedimos datos generales y despues los especificos de portatil
+	 *
+	 */
 	public void altaOrdenadorTorre() {
 		Ordenadores generales = pedirDatosGenerales();
 		/**
@@ -272,7 +297,19 @@ public class GestorOrdenadores {
 		System.out.println();
 	}
 
-	// alta Ordenador Torre
+	/**
+	 *  Alta Ordenador Torre por codigo
+	 * @param tipoOrdenador
+	 * @param modelo
+	 * @param procesador
+	 * @param tarjetaGrafica
+	 * @param capacidadMemoriaRAM
+	 * @param almacenamiento
+	 * @param refrigeracion
+	 * @param numeroSerie
+	 * @param etiqueta
+	 * @param potenciaFuenteAlimentacion
+	 */
 	public void altaOrdenadorTorre(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String refrigeracion, String numeroSerie, String etiqueta,
 			int potenciaFuenteAlimentacion) {
@@ -283,7 +320,11 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorTorre);
 	}
 
-	// alta ordenador sobremesa por teclado
+	/** 
+	 * alta ordenador portatil por teclado 
+	 * pedimos datos generales y despues los especificos de sobremesa
+	 *
+	 */
 	public void altaOrdenadorSobremesa() {
 		Ordenadores generales = pedirDatosGenerales();
 
@@ -297,7 +338,10 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
 	}
 
-	// alta ordenador sobremesa
+	/**Alta Ordenador sobremesa por codigo 
+	 * 
+	 * 
+	 * */
 	public void altaOrdenadorSobremesa(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, String tipoCaja) {
 		OrdenadorSobremesa nuevoOrdenadorSobremesa = new OrdenadorSobremesa(tipoOrdenador, modelo, procesador,
@@ -305,7 +349,12 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
 	}
 
-	// alta ordenador portatil por teclado
+	/** 
+	 * alta ordenador portatil por teclado 
+	 * pedimos datos generales y despues los especificos de portatil
+	 *
+	 */
+	
 	public void altaOrdenadorPortatil() {
 		Ordenadores generales = pedirDatosGenerales();
 
@@ -324,7 +373,21 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorPortatil);
 	}
 
-	// alta ordenador portatil
+	/**
+	 * alta ordenador portatil
+	 * 
+	 * @param tipoOrdenador
+	 * @param modelo
+	 * @param procesador
+	 * @param tarjetaGrafica
+	 * @param capacidadMemoriaRAM
+	 * @param almacenamiento
+	 * @param numeroSerie
+	 * @param etiqueta
+	 * @param pulgadas
+	 * @param autonomia
+	 * @param webcam
+	 */
 	public void altaOrdenadorPortatil(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, double pulgadas,
 			double autonomia, boolean webcam) {
@@ -334,7 +397,12 @@ public class GestorOrdenadores {
 		listaOrdenadores.add(nuevoOrdenadorPortatil);
 	}
 
-	// listar todos los ordanadores
+	/**
+	 * Metodo para listar todos los ordenadores y numerarlos recorremos array, si no
+	 * esta vacion lo muestra, y en cada vuelta del bucle me sumas 1 al contador
+	 * para numerarlos
+	 * 
+	 */
 	public void listarOrdenadores() {
 		int contador = 1;
 		for (Ordenadores ordenadores : listaOrdenadores) {
@@ -345,7 +413,10 @@ public class GestorOrdenadores {
 		}
 	}
 
-	// listar torres
+	/**
+	 * Metodo para lista ordenadores por torres, donde me compara el atributo
+	 * tipoOrdenador con "torre" si coincida lo muestra.
+	 */
 	public void listarTorres() {
 		for (Ordenadores torres : listaOrdenadores) {
 			if (torres.getTipoOrdenador().equalsIgnoreCase("torre")) {
@@ -354,7 +425,10 @@ public class GestorOrdenadores {
 		}
 	}
 
-	// listar sobremesas
+	/**
+	 * Metodo para lista ordenadores por torres, donde me compara el atributo
+	 * tipoOrdenador con "sobremesa" si coincida lo muestra.
+	 */
 	public void listarSobremesas() {
 		for (Ordenadores sobremesa : listaOrdenadores) {
 			if (sobremesa.getTipoOrdenador().equalsIgnoreCase("sobremesa")) {
@@ -363,7 +437,10 @@ public class GestorOrdenadores {
 		}
 	}
 
-	// listar portatiles
+	/**
+	 * Metodo para lista ordenadores por torres, donde me compara el atributo
+	 * tipoOrdenador con "portatil" si coincida lo muestra.
+	 */
 	public void listarPortatiles() {
 		for (Ordenadores portatil : listaOrdenadores) {
 			if (portatil.getTipoOrdenador().equalsIgnoreCase("portatil")) {
@@ -372,6 +449,13 @@ public class GestorOrdenadores {
 		}
 	}
 
+	/**
+	 * Metodo para listar ordenador por departamento segun la opcion seleccionado,
+	 * mostrara los ordenador que hay en cada departamento recorremos el array de
+	 * usuarios, y comparamos su departamento con el seleccionado. Si coincide me
+	 * mostrara los ordenadores y el usuario que lo esta usando
+	 * 
+	 */
 	public void listarOrdenadoresPorDepartamento() {
 		int opcionDepartamento = 0;
 		boolean opcionCorrecta;
@@ -428,7 +512,10 @@ public class GestorOrdenadores {
 		} while (opcionDepartamento != 4);
 	}
 
-	// listar usuarios
+	/**
+	 * Metodo para listar usuarios recorremos array, si no esta vacio se muestra
+	 * 
+	 */
 	public void listarUsuarios() {
 		for (Usuarios usu : listaUsuarios) {
 			if (usu != null) {
@@ -437,7 +524,12 @@ public class GestorOrdenadores {
 		}
 	}
 
-	// buscarUsurioPorNombre
+	/**
+	 * Metodo para buscar por nombre recorremos array, si el nombre del usuario
+	 * introducido coincide con el obtenido (.getNombre) se muestra, sino, imprime
+	 * que no existe
+	 * 
+	 */
 	public void buscarUsuarioNombre() {
 		System.out.print("Introduce el nombre del usuario: ");
 		String nombreBuscar = input.nextLine();
@@ -454,6 +546,13 @@ public class GestorOrdenadores {
 		}
 	}
 
+	/**
+	 * Metodo para buscar usuario por el nombre recorremos el array, si coincide el
+	 * nombre recibido con el obtenido (.getNombre) lo devuelve, sino devuelve null
+	 * 
+	 * @param nombre
+	 * @return
+	 */
 	public Usuarios buscarUsuarioNombre(String nombre) {
 		for (Usuarios usu : listaUsuarios) {
 			if (usu.getNombre().equalsIgnoreCase(nombre)) {
@@ -463,7 +562,13 @@ public class GestorOrdenadores {
 		return null;
 	}
 
-	// buscar usuario por etiqueta del ordenador de uso
+	/**
+	 * Metodo para buscar usuario por etiqueta del ordenador de uso: introducimos
+	 * etiqueta por teclado, recorremos el arrayList listaUsuarios si no esta vacio,
+	 * hacemos comparacion con la etiqueta el ordenador y la introducida. Lo imprime
+	 * si coincide, sino, imprime que no hay asignacion
+	 * 
+	 */
 	public void buscarUsuarioPorEtiquetaOrdenador() {
 		System.out.print("Introduce la etiqueta del ordenador que usa el usuario: ");
 		String etiquetaUsuarioBuscar = input.nextLine();
@@ -482,7 +587,12 @@ public class GestorOrdenadores {
 		}
 	}
 
-	// buscar ordenador por etiqueta
+	/**
+	 * metodo para buscar ordenador por etiqueta introducida por teclado recorremos
+	 * arrayList listaOrdenadores, si la etiqueta introducida es igual a la obtenida
+	 * (.getEtiqueta) lo devolvera, sino imprimira que no existe
+	 * 
+	 */
 	public void buscarOrdenadorPorEtiqueta() {
 		System.out.print("Introduce la etiqueta del ordenador: ");
 		String buscarEtiqueta = input.nextLine();
@@ -499,6 +609,12 @@ public class GestorOrdenadores {
 		}
 	}
 
+	/**
+	 * Metodo para buscar ordenador por etiquete
+	 * 
+	 * @param Ordenador
+	 * @return
+	 */
 	public Ordenadores buscarOrdenadorPorEtiqueta(String etiqueta) {
 		for (Ordenadores ord : listaOrdenadores) {
 			if (ord.getEtiqueta().equalsIgnoreCase(etiqueta)) {
@@ -508,14 +624,15 @@ public class GestorOrdenadores {
 		return null;
 	}
 
-	/** 
-	 * Metodo para buscar ordenador por numero de serie:
-	 * introducimos por teclado el numero de serie,
-	 * hacemos un booleano en false por defecto para
-	 * luego comprobar si se ha encontrado
+	/**
+	 * @param numeroSere Metodo para buscar ordenador por numero de serie:
+	 *                   introducimos por teclado el numero de serie, hacemos un
+	 *                   booleano en false por defecto para luego comprobar si se ha
+	 *                   encontrado. Recorremo array ArrayList de listaOrdenadores,
+	 *                   si el numero der serie introducido es igual al obtenido
+	 *                   (.getNumeroSerie) lo devuelve si no imprimira que no existe
 	 * 
-	 * 
-	 * */
+	 */
 	public void buscarOrdenadorPorNumeroSerie() {
 		System.out.print("Introduce el numero de serie del ordenador:");
 		String buscarNumeroSerie = input.nextLine();
@@ -534,12 +651,12 @@ public class GestorOrdenadores {
 
 	/**
 	 * 
-	 * creamos iterador para recorer de forma segura el arrayList Usuarios.
-	 * mientras haya usuarios (.hasNext)seguira recorriendo (.next)
-	 * y despues con .next avanzamos hacia el siguiente usuario
+	 * creamos iterador para recorer de forma segura el arrayList Usuarios. mientras
+	 * haya usuarios (.hasNext)seguira recorriendo (.next) y despues con .next
+	 * avanzamos hacia el siguiente usuario
 	 * 
 	 */
-	
+
 	public void darDeBajaUsuario() {
 		System.out.print("Introduce el nombre del usuario que quieras dar de baja: ");
 		String nombre = input.nextLine();
@@ -559,9 +676,9 @@ public class GestorOrdenadores {
 	}
 
 	/**
-	 *  Metodo para desasignar a un usuario su ordenador: Recorremos
-	 *  el arrayList listaUsuarios, si un usuario tiene un ordenador
-	 *  y es igual al objeto Ordenadores recibido pasara a ser null
+	 * Metodo para desasignar a un usuario su ordenador: Recorremos el arrayList
+	 * listaUsuarios, si un usuario tiene un ordenador y es igual al objeto
+	 * Ordenadores recibido pasara a ser null
 	 * 
 	 */
 	public void desasignarOrdenadorDeUsuarios(Ordenadores ordenador) {
@@ -587,8 +704,8 @@ public class GestorOrdenadores {
 		Iterator<Ordenadores> iteradorOrdenadores = listaOrdenadores.iterator();
 		/**
 		 * creamos iterador para recorer de forma segura el arrayList Ordenadores.
-		 * mientras haya ordenadores (.hasNext)seguira recorriendo (.next)
-		 * y despues con .next avanzamos hacia el siguiente ordenador
+		 * mientras haya ordenadores (.hasNext)seguira recorriendo (.next) y despues con
+		 * .next avanzamos hacia el siguiente ordenador
 		 */
 		while (iteradorOrdenadores.hasNext()) {
 			Ordenadores ordenador = iteradorOrdenadores.next();
@@ -596,7 +713,8 @@ public class GestorOrdenadores {
 				ordenadorEliminar = ordenador;
 				iteradorOrdenadores.remove();
 
-				System.out.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
+				System.out
+						.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
 				ordenadorExiste = true;
 			}
 		}
@@ -607,8 +725,8 @@ public class GestorOrdenadores {
 			System.out.println("No existe ningun ordenador con la etiqueta [" + etiqueta + "]");
 		}
 		/**
-		 * Si el ordenador no esta vacio, llamamos al metodo desasignar desasignarlos de los usuario al
-		 * haber sido eliminado
+		 * Si el ordenador no esta vacio, llamamos al metodo desasignar desasignarlos de
+		 * los usuario al haber sido eliminado
 		 */
 		if (ordenadorEliminar != null) {
 			desasignarOrdenadorDeUsuarios(ordenadorEliminar);
