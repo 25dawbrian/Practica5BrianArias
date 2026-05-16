@@ -5,10 +5,10 @@ public class OrdenadorPortatil extends Ordenadores {
 	private double autonomia;
 	private boolean webcam;
 
-	public OrdenadorPortatil(String tipoOrdenador, String modelo, String procesador, boolean graficosIntegrados, String tarjetaGrafica,
+	public OrdenadorPortatil(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, double pulgadas,
 			double autonomia, boolean webcam) {
-		super(tipoOrdenador, modelo, procesador, graficosIntegrados, tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie,
+		super(tipoOrdenador, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie,
 				etiqueta);
 		this.tipoOrdenador = "Portatil";
 		this.pulgadas = pulgadas;

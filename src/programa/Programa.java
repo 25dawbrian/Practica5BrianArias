@@ -6,12 +6,18 @@ import menus.Menus;
 
 public class Programa {
 	static Scanner input = new Scanner(System.in);
-
+	/**
+	 * @author Brian Arias
+	 * 
+	 */
 	public static void main(String[] args) {
 		GestorOrdenadores gestor = new GestorOrdenadores();
 		Menus menu = new Menus(gestor);
 
-		// cargamos datos iniciales
+		/**
+		 * Carga de datos iniciales :
+		 * Od
+		 */
 		gestor.datosIniciales();
 
 		System.out.println("========================================");
@@ -40,7 +46,6 @@ public class Programa {
 			case 1:
 				System.out.println("1.-Dar de alta un usuario");
 				gestor.altaUsuario();
-
 				break;
 			case 2:
 				System.out.println("2.-Dar de alta un ordenador");

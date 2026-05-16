@@ -21,7 +21,7 @@ public abstract class Ordenadores {
 		this.etiqueta="";
 	}
 
-	public Ordenadores(String tipoOrdenador, String modelo, String procesador, boolean graficosIntegrados, String tarjetaGrafica,
+	public Ordenadores(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta) {
 		this.tipoOrdenador=tipoOrdenador;
 		this.modelo = modelo;

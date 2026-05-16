@@ -124,6 +124,19 @@ public class Usuarios {
 	    }
 	}
 	
+	public static boolean validarNombre(String nombre) {
+	    boolean correcto = true;
+	    for(int i = 0; i < nombre.length(); i++) {
+	        char letra = nombre.charAt(i);
+	        if((letra < 'A' || letra > 'Z')
+	                && (letra < 'a' || letra > 'z')
+	                && letra != ' ') {
+	            correcto = false;
+	        }
+	    }
+	    return correcto;
+	}
+	
 	public static String generarEmailEmpresa(String nombre, String apellidos) {
 		return nombre.toLowerCase() + apellidos.toLowerCase() + "@briancompany.com";
 	}
