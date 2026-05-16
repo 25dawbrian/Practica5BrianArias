@@ -15,9 +15,6 @@ public class GestorOrdenadores {
 		listaUsuarios = new ArrayList<Usuarios>();
 		listaDepartamentos = new ArrayList<>();
 
-		listaDepartamentos.add(new Departamentos("Financiero"));
-		listaDepartamentos.add(new Departamentos("Diseño 3D"));
-		listaDepartamentos.add(new Departamentos("Marketing"));
 	}
 
 	public void datosIniciales() {
@@ -388,6 +385,15 @@ public class GestorOrdenadores {
 			System.out.println("No existe ningun usuario con ese nombre");
 		}
 	}
+	
+	public Usuarios buscarUsuarioNombre(String nombre) {
+	    for (Usuarios usu : listaUsuarios) {
+	        if (usu.getNombre().equalsIgnoreCase(nombre)) {
+	            return usu;
+	        }
+	    }
+	    return null;
+	}
 
 	// buscar usuario por etiqueta del ordenador de uso
 	public void buscarUsuarioPorEtiquetaOrdenador() {
@@ -423,6 +429,15 @@ public class GestorOrdenadores {
 		if (!etiquetaPCEncontrada) {
 			System.out.println("Este ordenador no existe");
 		}
+	}
+	
+	public Ordenadores buscarOrdenadorPorEtiqueta(String etiqueta) {
+	    for (Ordenadores ord : listaOrdenadores) {
+	        if (ord.getEtiqueta().equalsIgnoreCase(etiqueta)) {
+	            return ord;
+	        }
+	    }
+	    return null;
 	}
 
 	// buscar ordendador por numero de serie
@@ -475,7 +490,8 @@ public class GestorOrdenadores {
 				ordenadorEliminar = ordenador;
 				iteradorOrdenadores.remove();
 
-				System.out.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
+				System.out
+						.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
 				ordenadorExiste = true;
 			}
 		}
@@ -493,6 +509,24 @@ public class GestorOrdenadores {
 				ord.setOrdenador(null);
 			}
 		}
+	}
+	public void asignarOrdenadorAUsuario() {
+	    System.out.print("Nombre del usuario: ");
+	    String usuario = input.nextLine();
+	    System.out.print("Etiqueta del ordenador a asignar: ");
+	    String etiquetaPC = input.nextLine();
+
+	    // Llamadas a otros métodos
+	    Usuarios user = buscarUsuarioNombre(usuario);
+	    Ordenadores pc = buscarOrdenadorPorEtiqueta(etiquetaPC);
+
+	    if (user != null && pc != null) {
+	        // Asignamos el objeto Ordenadores al atributo del objeto Usuarios
+	        user.setOrdenador(pc); 
+	        System.out.println("El ordenador " + etiquetaPC + " ha sido asignado a " + usuario);
+	    } else {
+	        System.out.println("Error: No se encontró el usuario o el ordenador.");
+	    }
 	}
 
 }

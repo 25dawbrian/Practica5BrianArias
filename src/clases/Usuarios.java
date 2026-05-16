@@ -115,20 +115,7 @@ public class Usuarios {
 	    if (arrobaEncontrada && puntoEncontrado
 	            && posArroba < posPunto) {
 	        System.out.println("Correo valido");
-	        System.out.print("Nombre de usuario: ");
-	        for (int i = 0; i < posArroba; i++) {
-	            System.out.print(email.charAt(i));
-	        }
-	        System.out.println();
-	        System.out.print("Dominio: ");
-	        for (int i = posArroba + 1; i < posPunto; i++) {
-	            System.out.print(email.charAt(i));
-	        }
-	        System.out.println();
-	        System.out.print("Extension: ");
-	        for (int i = posPunto + 1; i < email.length(); i++) {
-	            System.out.print(email.charAt(i));
-	        }
+	      
 	        System.out.println();
 	        return true;
 	    }

@@ -31,6 +31,7 @@ public class Programa {
 			System.out.println("||      6.-Buscar ordenador             ||");
 			System.out.println("||      7.-Dar de baja un usuario       ||");
 			System.out.println("||      8.-Eliminar un ordenador        ||");
+			System.out.println("||      9.-Asignar ordenador            ||");
 			System.out.println("==========================================");
 			System.out.print("Selecciona una accion: ");
 			opcion = input.nextInt();
@@ -68,12 +69,16 @@ public class Programa {
 				System.out.println("8.-Eliminar un ordenador");
 				gestor.eliminarOrdenadorPorEtiqueta();
 				break;
+			case 9:
+				System.out.println("9.-Asignar ordenador a un usuario");
+				gestor.asignarOrdenadorAUsuario();
+				break;
 			default:
 				System.out.println("Opcion no contemplada");
 				break;
 			}
 
-		} while (opcion != 8);
+		} while (opcion != 10);
 	}
 
 }
