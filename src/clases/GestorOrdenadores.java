@@ -14,7 +14,6 @@ public class GestorOrdenadores {
 		listaOrdenadores = new ArrayList<Ordenadores>();
 		listaUsuarios = new ArrayList<Usuarios>();
 		listaDepartamentos = new ArrayList<>();
-
 	}
 
 	public void datosIniciales() {
@@ -96,7 +95,6 @@ public class GestorOrdenadores {
 					}
 				} while (!emailValido);
 				break;
-
 			case 2:
 				email = Usuarios.generarEmailEmpresa(nombre, apellidos);
 				System.out.println("Email generado: " + email);
@@ -180,11 +178,16 @@ public class GestorOrdenadores {
 
 	}
 
-	// alta Ordenador Torre por teclado
-	public void altaOrdenadorTorre() {
+	public Ordenadores pedirDatosGenerales() {
 		String tipoOrdenador = "";
 
-		System.out.print("Introduce el modelo: ");
+		System.out.print("Etiqueta: ");
+		String etiqueta = input.nextLine();
+
+		System.out.print("Numero de serie: ");
+		String numeroSerie = input.nextLine();
+
+		System.out.print("Introduce el modelo del ordenador: ");
 		String modelo = input.nextLine();
 
 		System.out.print("Introduce el procesador: ");
@@ -193,29 +196,74 @@ public class GestorOrdenadores {
 		System.out.print("Introduce la tarjeta grafica: ");
 		String tarjetaGrafica = input.nextLine();
 
-		System.out.print("Potencia de la fuente de alimentacion (W): ");
-		int potenciaFuenteAlimentacion = input.nextInt();
-		input.nextLine();
+		/**
+		 * Introduccion de la cantidad de memoria RAM controlando la excepcion para
+		 * introducir numeros unicamente
+		 */
 
-		System.out.print("Cantidad de RAM (GB): ");
-		int capacidadMemoriaRAM = input.nextInt();
-		input.nextLine();
+		int capacidadMemoriaRAM = 0;
+		boolean ramCorrecta = false;
+		do {
+			try {
 
-		System.out.print("Cantidad de almacenamiento (GB): ");
-		int almacenamiento = input.nextInt();
-		input.nextLine();
+				System.out.print("Cantidad de RAM (GB): ");
+				capacidadMemoriaRAM = input.nextInt();
+				ramCorrecta = true;
+			} catch (Exception e) {
+				System.out.println("Error: debes introducir numeros");
+				input.nextLine();
+			}
+		} while (!ramCorrecta);
+
+		/**
+		 * Introduccion de la cantidad del almacenamiento controlando la excepcion para
+		 * introducir numeros unicamente
+		 */
+
+		int almacenamiento = 0;
+		boolean almacenamientoCorrecto = false;
+		do {
+			try {
+				System.out.print("Cantidad de almacenamiento (GB): ");
+				almacenamiento = input.nextInt();
+				almacenamientoCorrecto = true;
+			} catch (Exception e) {
+				System.out.println("Error: debes introducir numeros");
+				input.nextLine();
+			}
+		} while (!almacenamientoCorrecto);
+		Ordenadores ordenador = new Ordenadores(tipoOrdenador, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM,
+				almacenamiento, numeroSerie, etiqueta);
+		return ordenador;
+	}
+
+	// alta Ordenador Torre por teclado
+	public void altaOrdenadorTorre() {
+		Ordenadores generales = pedirDatosGenerales();
+		/**
+		 * Introduccion de la cantidad de potencia de la fuente controlando la excepcion
+		 * para introducir numeros unicamente
+		 */
+		int potenciaFuenteAlimentacion = 0;
+		boolean fuenteCorrecta = false;
+		do {
+			try {
+				System.out.print("Potencia de la fuente de alimentacion (W): ");
+				potenciaFuenteAlimentacion = input.nextInt();
+				fuenteCorrecta = true;
+			} catch (Exception e) {
+				System.out.println("Error: debes introducir numeros");
+				input.nextLine();
+			}
+		} while (!fuenteCorrecta);
 
 		System.out.print("Tipo de refrigeracion (ventilador/liquida): ");
 		String refrigeracion = input.nextLine();
 
-		System.out.print("Numero de serie: ");
-		String numeroSerie = input.nextLine();
-
-		System.out.print("Etiqueta: ");
-		String etiqueta = input.nextLine();
-
-		OrdenadorTorre nuevoOrdenadorTorre = new OrdenadorTorre(tipoOrdenador, modelo, procesador, tarjetaGrafica,
-				capacidadMemoriaRAM, almacenamiento, refrigeracion, numeroSerie, etiqueta, potenciaFuenteAlimentacion);
+		OrdenadorTorre nuevoOrdenadorTorre = new OrdenadorTorre(generales.getTipoOrdenador(), generales.getModelo(),
+				generales.getProcesador(), generales.getTarjetaGrafica(), generales.getCapacidadMemoriaRAM(),
+				generales.getAlmacenamiento(), refrigeracion, generales.getNumeroSerie(), generales.getEtiqueta(),
+				potenciaFuenteAlimentacion);
 
 		listaOrdenadores.add(nuevoOrdenadorTorre);
 
@@ -236,36 +284,15 @@ public class GestorOrdenadores {
 
 	// alta ordenador sobremesa por teclado
 	public void altaOrdenadorSobremesa() {
-		String tipoOrdenador = "";
-
-		System.out.print("Introduce el modelo: ");
-		String modelo = input.nextLine();
-
-		System.out.print("Introduce el procesador: ");
-		String procesador = input.nextLine();
-
-		System.out.println("Introduce la tarjeta grafica");
-		String tarjetaGrafica = input.nextLine();
-
-		System.out.print("Cantidad de RAM (GB): ");
-		int capacidadMemoriaRAM = input.nextInt();
-		input.nextLine();
-
-		System.out.print("Cantidad de almacenamiento (GB): ");
-		int almacenamiento = input.nextInt();
-		input.nextLine();
+		Ordenadores generales = pedirDatosGenerales();
 
 		System.out.println("Tipo de caja: ");
 		String tipoCaja = input.nextLine();
 
-		System.out.print("Numero de serie: ");
-		String numeroSerie = input.nextLine();
-
-		System.out.print("Etiqueta: ");
-		String etiqueta = input.nextLine();
-
-		OrdenadorSobremesa nuevoOrdenadorSobremesa = new OrdenadorSobremesa(tipoOrdenador, modelo, procesador,
-				tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie, etiqueta, tipoCaja);
+		OrdenadorSobremesa nuevoOrdenadorSobremesa = new OrdenadorSobremesa(generales.getTipoOrdenador(),
+				generales.getModelo(), generales.getProcesador(), generales.getTarjetaGrafica(),
+				generales.getCapacidadMemoriaRAM(), generales.getAlmacenamiento(), generales.getNumeroSerie(),
+				generales.getEtiqueta(), tipoCaja);
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
 	}
 
@@ -279,41 +306,20 @@ public class GestorOrdenadores {
 
 	// alta ordenador portatil por teclado
 	public void altaOrdenadorPortatil() {
-		String tipoOrdenador = "";
+		Ordenadores generales = pedirDatosGenerales();
 
-		System.out.print("Introduce el modelo: ");
-		String modelo = input.nextLine();
-
-		System.out.print("Introduce el procesador: ");
-		String procesador = input.nextLine();
-
-		System.out.println("Introduce la tarjeta grafica");
-		String tarjetaGrafica = input.nextLine();
-
-		System.out.print("Cantidad de RAM (GB): ");
-		int capacidadMemoriaRAM = input.nextInt();
-		input.nextLine();
-
-		System.out.print("Cantidad de almacenamiento (GB): ");
-		int almacenamiento = input.nextInt();
-		input.nextLine();
-
-		System.out.println("Cantidad de pulgadas: ");
+		System.out.println("Cantidad de pulgadas de la pantalla: ");
 		double pulgadas = input.nextInt();
 
 		System.out.println("Tiempo de autonomía (horas): ");
 		double autonomia = input.nextInt();
 
-		System.out.println("Introduce el numero de serie: ");
-		String numeroSerie = input.nextLine();
-
-		System.out.println("Introduce la etiqueta: ");
-		String etiqueta = input.nextLine();
-
 		boolean webcam = true;
-		OrdenadorPortatil nuevoOrdenadorPortatil = new OrdenadorPortatil(tipoOrdenador, modelo, procesador,
-				tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie, etiqueta, pulgadas, autonomia,
-				webcam);
+
+		OrdenadorPortatil nuevoOrdenadorPortatil = new OrdenadorPortatil(generales.getTipoOrdenador(),
+				generales.getModelo(), generales.getProcesador(), generales.getTarjetaGrafica(),
+				generales.getCapacidadMemoriaRAM(), generales.getAlmacenamiento(), generales.getNumeroSerie(),
+				generales.getEtiqueta(), pulgadas, autonomia, webcam);
 		listaOrdenadores.add(nuevoOrdenadorPortatil);
 	}
 
@@ -363,6 +369,45 @@ public class GestorOrdenadores {
 				System.out.println(portatil);
 			}
 		}
+	}
+
+	public void listarOrdenadoresPorDepartamento() {
+		int opcionDepartamento;
+		System.out.println("1. Financiero");
+		System.out.println("2. Diseño 3D");
+		System.out.println("3. Marketing");
+		System.out.print("Selecciona un departamento: ");
+		opcionDepartamento = input.nextInt();
+		input.nextLine();
+
+		Departamentos departamentoSeleccionado = null;
+
+		switch (opcionDepartamento) {
+		case 1:
+			departamentoSeleccionado = listaDepartamentos.get(0);
+			break;
+		case 2:
+			departamentoSeleccionado = listaDepartamentos.get(1);
+			break;
+		case 3:
+			departamentoSeleccionado = listaDepartamentos.get(2);
+			break;
+		default:
+			System.out.println("Opcion incorrecta");
+			return;
+		}
+
+		System.out.println("Ordenadores del departamento de " + departamentoSeleccionado.getNombreDepartamento());
+		for (Usuarios usuario : listaUsuarios) {
+			if (usuario.getDepartamento().equals(departamentoSeleccionado)) {
+				System.out.println("_______________________");
+				System.out.println("Ordendador de " + usuario.getNombre() + " " + usuario.getApellidos() + "|");
+				System.out.println(usuario.getOrdenador());
+
+			}
+
+		}
+
 	}
 
 	// listar usuarios
@@ -516,6 +561,9 @@ public class GestorOrdenadores {
 		}
 	}
 
+	/**
+	 * Asignacion de un ordenador a un usuario
+	 */
 	public void asignarOrdenadorAUsuario() {
 		System.out.print("Nombre del usuario: ");
 		String usuario = input.nextLine();

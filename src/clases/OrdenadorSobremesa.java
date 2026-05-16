@@ -5,7 +5,7 @@ public class OrdenadorSobremesa extends Ordenadores {
 
 	public OrdenadorSobremesa(String tipoOrdenador,String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, String tipoCaja) {
-		super(tipoOrdenador, modelo, procesador, false, tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie,
+		super(tipoOrdenador, modelo, procesador, tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie,
 				etiqueta);
 		this.tipoOrdenador="Sobremesa";
 		this.tipoCaja = tipoCaja;

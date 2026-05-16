@@ -2,22 +2,22 @@ package clases;
 
 public class Departamentos {
 
-    private String nombreDepartamento;
+	private String nombreDepartamento;
 
-    public Departamentos(String nombreDepartamento) {
-        this.nombreDepartamento = nombreDepartamento;
-    }
+	public Departamentos(String nombreDepartamento) {
+		this.nombreDepartamento = nombreDepartamento;
+	}
 
-    public String getNombreDepartamento() {
-        return nombreDepartamento;
-    }
+	public String getNombreDepartamento() {
+		return nombreDepartamento;
+	}
 
-    public void setNombreDepartamento(String nombreDepartamento) {
-        this.nombreDepartamento = nombreDepartamento;
-    }
+	public void setNombreDepartamento(String nombreDepartamento) {
+		this.nombreDepartamento = nombreDepartamento;
+	}
 
-    @Override
-    public String toString() {
-        return nombreDepartamento;
-    }
+	@Override
+	public String toString() {
+		return nombreDepartamento;
+	}
 }

@@ -1,6 +1,6 @@
 package clases;
 
-public abstract class Ordenadores {
+public class Ordenadores {
 	protected String tipoOrdenador;
 	protected String modelo;
 	protected String procesador;

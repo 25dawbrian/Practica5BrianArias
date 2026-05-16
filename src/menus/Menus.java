@@ -55,15 +55,16 @@ public class Menus {
 	public void menuListar() {
 		int opcionListar;
 		do {
-			System.out.println("============================================");
-			System.out.println("||-------------MENU LISTAR----------------||");
-			System.out.println("============================================");
-			System.out.println("||      1.-Listar por torres.             ||");
-			System.out.println("||      2.-Listar por sobremesas.         ||");
-			System.out.println("||      3.-Listar por portatil.           ||");
-			System.out.println("||      4.-Listar todos los ordenadores.  ||");
-			System.out.println("||      5.-Volver al menu principal.      ||");
-			System.out.println("============================================");
+			System.out.println("====================================================");
+			System.out.println("||------------------MENU LISTAR-------------------||");
+			System.out.println("====================================================");
+			System.out.println("||      1.-Listar por torres.                     ||");
+			System.out.println("||      2.-Listar por sobremesas.                 ||");
+			System.out.println("||      3.-Listar por portatil.                   ||");
+			System.out.println("||      4.-Listar ordenadores por departamento.   ||");
+			System.out.println("||      5.-Listar todos los ordenadores.          ||");
+			System.out.println("||      6.-Volver al menu principal.              ||");
+			System.out.println("====================================================");
 			System.out.print("Selecciona una accion: ");
 			opcionListar = input.nextInt();
 			switch (opcionListar) {
@@ -80,10 +81,15 @@ public class Menus {
 				gestor.listarPortatiles();
 				break;
 			case 4:
-				System.out.println("4.-Listar todos los ordenadores");
-				gestor.listarOrdenadores();
+				System.out.println("4.-Listar por departamento");
+				gestor.listarOrdenadoresPorDepartamento();
 				break;
 			case 5:
+				System.out.println("5.-Listar todos los ordenadores");
+				gestor.listarOrdenadores();
+				
+				break;
+			case 6:
 				System.out.println("Volver al menu principal");
 				break;
 			default:
@@ -91,7 +97,7 @@ public class Menus {
 				break;
 			}
 
-		} while (opcionListar != 5);
+		} while (opcionListar != 6);
 	}
 
 	public void menuBuscarUsuario() {
