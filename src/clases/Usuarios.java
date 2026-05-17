@@ -6,6 +6,7 @@ package clases;
 	 *
 	 */
 public class Usuarios {
+	private int idUsuario;
 	private String nombre;
 	private String apellidos;
 	Departamentos departamento;
@@ -13,8 +14,9 @@ public class Usuarios {
 	private int edad;
 	Ordenadores ordenador;
 
-	public Usuarios(String nombre, String apellidos, Departamentos departamento, String email, int edad,
+	public Usuarios(int idUsuario ,String nombre, String apellidos, Departamentos departamento, String email, int edad,
 			Ordenadores ordenador) {
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.departamento = departamento;
@@ -23,6 +25,7 @@ public class Usuarios {
 		this.ordenador = ordenador;
 	}
 	public Usuarios() {
+		this.idUsuario = 0;
 		this.nombre = "";
 		this.apellidos = "";
 		this.departamento = null;
@@ -30,7 +33,13 @@ public class Usuarios {
 		this.edad = 0;
 		this.ordenador = null;
 	}
-
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -94,6 +103,7 @@ public class Usuarios {
 		}
 
 		return "\n=============================" +
+			   "\nID Usuario: " + idUsuario +
 			   "\nNombre: " + nombre + " " + apellidos +
 			   "\nDepartamento: " + departamento +
 			   "\nEmail: " + email +
@@ -160,6 +170,19 @@ public class Usuarios {
 	    }
 	    return correcto;
 	}
+	
+	public static boolean validarApellidos(String apellido) {
+	    boolean correcto = true;
+	    for(int i = 0; i < apellido.length(); i++) {
+	        char letra = apellido.charAt(i);
+	        if((letra < 'A' || letra > 'Z')
+	                && (letra < 'a' || letra > 'z')
+	                && letra != ' ') {
+	            correcto = false;
+	        }
+	    }
+	    return correcto;
+	}
 	/**
 	 * Metodo para generar email automatico mediante
 	 * nombre y apellidos introducidos, añadiendo el dominio
@@ -170,7 +193,22 @@ public class Usuarios {
 	 * @return
 	 */
 	public static String generarEmailEmpresa(String nombre, String apellidos) {
-		return nombre.toLowerCase() + apellidos.toLowerCase() + "@briancompany.com";
+		  return nombre.replace(" ", "").toLowerCase()
+		            + apellidos.replace(" ", "").toLowerCase()
+		            + "@briancompany.com";
+	}
+	
+	/**
+	 * Metodo para validar que el usuario sea mayor de edad
+	 * @param edad
+	 * @return
+	 */
+	public static boolean validarEdad(int edad) {
+	    boolean correcta = true;
+	    if(edad < 18) {
+	        correcta = false;
+	    }
+	    return correcta;
 	}
 
 }

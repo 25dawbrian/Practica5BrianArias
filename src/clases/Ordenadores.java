@@ -1,7 +1,9 @@
 package clases;
+
 /**
- * clase Ordenadores
- * clase padre con los atributos generales de todos los ordenadores
+ * clase Ordenadores clase padre con los atributos generales de todos los
+ * ordenadores
+ * 
  * @author Brian Arias
  */
 public class Ordenadores {
@@ -20,16 +22,16 @@ public class Ordenadores {
 		this.modelo = "";
 		this.procesador = "";
 		this.tarjetaGrafica = "";
-		this.capacidadMemoriaRAM=0;
-		this.almacenamiento=0;
-		this.numeroSerie="";
-		this.etiqueta="";
-		this.asignado=false;
+		this.capacidadMemoriaRAM = 0;
+		this.almacenamiento = 0;
+		this.numeroSerie = "";
+		this.etiqueta = "";
+		this.asignado = false;
 	}
-	
+
 	public Ordenadores(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
 			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, boolean asignado) {
-		this.tipoOrdenador=tipoOrdenador;
+		this.tipoOrdenador = tipoOrdenador;
 		this.modelo = modelo;
 		this.procesador = procesador;
 		this.tarjetaGrafica = tarjetaGrafica;
@@ -37,10 +39,9 @@ public class Ordenadores {
 		this.almacenamiento = almacenamiento;
 		this.numeroSerie = numeroSerie;
 		this.etiqueta = etiqueta;
-		this.asignado=false;
+		this.asignado = false;
 	}
-	
-	
+
 	public boolean isAsignado() {
 		return asignado;
 	}
@@ -126,5 +127,62 @@ public class Ordenadores {
 			   "\nAsignador: " + asignado +
 			   "\n===============================\n";
 	}
+	/**
+	 * Metodo para validar el numero de serie y que cumpla formato de 3 letras y 3
+	 * numeros
+	 */
+	public static boolean validarNumeroSerie(String numeroSerie) {
+		boolean correcto = true;
+		if (numeroSerie.length() != 6) {
+			correcto = false;
+		} else {
+			for (int i = 0; i < 3; i++) {
+				char numero = numeroSerie.charAt(i);
+				if (numero < '0' || numero > '9') {
+					correcto = false;
+				}
+			}
+			for (int i = 3; i < 6; i++) {
+				char letra = numeroSerie.charAt(i);
+				if ((letra < 'A' || letra > 'Z')) {
+					correcto = false;
+				}
+			}
+		}
+		return correcto;
+	}
 
+	/**
+	 * Metodo para validar la etiqueta del ordenador
+	 * @param etiqueta
+	 * @param prefijo
+	 * @return
+	 */
+	public static boolean validarEtiqueta(String etiqueta, String prefijo) {
+		boolean correcta = true;
+		if (etiqueta.length() != 12) {
+			correcta = false;
+		} else {
+			String inicio = etiqueta.substring(0, 3);
+			if (!inicio.equalsIgnoreCase(prefijo)) {
+				correcta = false;
+			}
+			if (etiqueta.charAt(3) != '/' || etiqueta.charAt(8) != '/') {
+				correcta = false;
+			}
+			for (int i = 4; i < 8; i++) {
+				char numero = etiqueta.charAt(i);
+				if (numero < '0' || numero > '9') {
+					correcta = false;
+				}
+			}
+			for (int i = 9; i < 12; i++) {
+				char numero = etiqueta.charAt(i);
+				if (numero < '0' || numero > '9') {
+					correcta = false;
+				}
+			}
+		}
+		return correcta;
+	}
 }

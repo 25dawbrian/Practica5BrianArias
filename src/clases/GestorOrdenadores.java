@@ -52,13 +52,13 @@ public class GestorOrdenadores {
 		listaDepartamentos.add(marketing);
 
 		// damos de alta 3 usuarios
-		altaUsuario("Eva", "Lopez", financiero, "evalopez@briancompany.com", 26, listaOrdenadores.get(0));
-		altaUsuario("Luis", "Perez", disennio3d, "luisperez@briancompany.com", 32, listaOrdenadores.get(2));
-		altaUsuario("Pepe", "Villanueva", marketing, "pepevillanueva@gmail.com", 43, listaOrdenadores.get(4));
+		altaUsuario(1, "Eva", "Lopez", financiero, "evalopez@briancompany.com", 26, listaOrdenadores.get(0));
+		altaUsuario(2, "Luis", "Perez", disennio3d, "luisperez@briancompany.com", 32, listaOrdenadores.get(2));
+		altaUsuario(3, "Pepe", "Villanueva", marketing, "pepevillanueva@gmail.com", 43, listaOrdenadores.get(4));
 	}
 
 	/**
-	 * Metodo para dar de alta usuario por codigo
+	 * Metodo para dar de alta departamentpo por codigo
 	 */
 	public void altaDepartamento(String nombreDepartamento) {
 		Departamentos nuevoDepartamento = new Departamentos(nombreDepartamento);
@@ -70,6 +70,9 @@ public class GestorOrdenadores {
 	 * 
 	 */
 	public void altaUsuario() {
+		System.out.println("Introduce el ID del usuario: ");
+		int idUsuario = input.nextInt();
+
 		String nombre;
 		boolean nombreCorrecto;
 		do {
@@ -78,12 +81,21 @@ public class GestorOrdenadores {
 			nombreCorrecto = Usuarios.validarNombre(nombre);
 			/** Llamada al metodo ValidarNombre para solo introducir letras */
 			if (!nombreCorrecto) {
-				System.out.println("Error: solo se permiten letras");
+				System.err.println("Error: solo se permiten letras");
 			}
 		} while (!nombreCorrecto);
 
-		System.out.print("Introduce los apellidos: ");
-		String apellidos = input.nextLine();
+		String apellidos;
+		boolean apellidosCorrecto;
+		do {
+			System.out.print("Introduce los apellidos: ");
+			apellidos = input.nextLine();
+			apellidosCorrecto = Usuarios.validarNombre(apellidos);
+			/** Llamada al metodo ValidarApellidos para solo introducir letras */
+			if (!apellidosCorrecto) {
+				System.err.println("Error: solo se permiten letras");
+			}
+		} while (!apellidosCorrecto);
 
 		String email = "";
 		int opcionEmail;
@@ -136,15 +148,18 @@ public class GestorOrdenadores {
 				System.out.print("Introduce la edad: ");
 				edad = input.nextInt();
 				input.nextLine();
-				edadCorrecta = true;
-			} catch (Exception e) {
-				System.out.println("Error: debes introducir numeros");
+				edadCorrecta = Usuarios.validarEdad(edad);
+				if (!edadCorrecta) {
+					System.err.println("Error: el usuario debe ser mayor de edad.");
+				}
+			} catch (InputMismatchException e) {
+				System.err.println("Error: debes introducir numeros.");
 				input.nextLine();
 			}
 		} while (!edadCorrecta);
 
 		// asignacion del departamento
-		Usuarios nuevoUsuario = new Usuarios(nombre, apellidos, null, email, edad, null);
+		Usuarios nuevoUsuario = new Usuarios(idUsuario, nombre, apellidos, null, email, edad, null);
 		int opcionDepartamento;
 		do {
 			System.out.println("Asignacion del departamento");
@@ -201,6 +216,7 @@ public class GestorOrdenadores {
 	/**
 	 * Alta usuario por codigo
 	 * 
+	 * @param idUsuario
 	 * @param nombre
 	 * @param apellidos
 	 * @param departamento
@@ -208,20 +224,42 @@ public class GestorOrdenadores {
 	 * @param edad
 	 * @param ordenador
 	 */
-	public void altaUsuario(String nombre, String apellidos, Departamentos departamento, String email, int edad,
-			Ordenadores ordenador) {
+	public void altaUsuario(int idUsuario, String nombre, String apellidos, Departamentos departamento, String email,
+			int edad, Ordenadores ordenador) {
 		ordenador.setAsignado(true);
-		Usuarios nuevoUsuario = new Usuarios(nombre, apellidos, departamento, email, edad, ordenador);
+		Usuarios nuevoUsuario = new Usuarios(idUsuario, nombre, apellidos, departamento, email, edad, ordenador);
 		listaUsuarios.add(nuevoUsuario);
 
 	}
 
-	public Ordenadores pedirDatosGenerales() {
-		System.out.print("Etiqueta: ");
-		String etiqueta = input.nextLine();
+	/**
+	 * Metodo para pedir datos generales de los ordenadores
+	 * 
+	 * @return
+	 */
+	public Ordenadores pedirDatosGenerales(String prefijo) {
+		String etiqueta;
+		boolean etiquetaCorrecta;
+		do {
+			System.out.print("Etiqueta: ");
+			etiqueta = input.nextLine();
+			etiquetaCorrecta = Ordenadores.validarEtiqueta(etiqueta, prefijo);
+			if (!etiquetaCorrecta) {
+				System.err.println("Formato incorrecto: prefijo / año de alta / numero de tres digitos");
+				System.out.println("Ejemplo: " + prefijo + "/2025/001");
+			}
+		} while (!etiquetaCorrecta);
 
-		System.out.print("Numero de serie: ");
-		String numeroSerie = input.nextLine();
+		String numeroSerie;
+		boolean numeroSerieCorrecta;
+		do {
+			System.out.print("Introduce el numero de serie: ");
+			numeroSerie = input.nextLine();
+			numeroSerieCorrecta = Ordenadores.validarNumeroSerie(numeroSerie);
+			if (!numeroSerieCorrecta) {
+				System.err.println("Formato incorrecto. Ejemplo válido: 123ABC");
+			}
+		} while (!numeroSerieCorrecta);
 
 		System.out.print("Introduce el modelo del ordenador: ");
 		String modelo = input.nextLine();
@@ -240,7 +278,6 @@ public class GestorOrdenadores {
 		boolean ramCorrecta = false;
 		do {
 			try {
-
 				System.out.print("Cantidad de RAM (GB): ");
 				capacidadMemoriaRAM = input.nextInt();
 				ramCorrecta = true;
@@ -277,7 +314,7 @@ public class GestorOrdenadores {
 	 *
 	 */
 	public void altaOrdenadorTorre() {
-		Ordenadores generales = pedirDatosGenerales();
+		Ordenadores generales = pedirDatosGenerales("TOR");
 		/**
 		 * Introduccion de la cantidad de potencia de la fuente controlando la excepcion
 		 * para introducir numeros unicamente
@@ -339,7 +376,7 @@ public class GestorOrdenadores {
 	 *
 	 */
 	public void altaOrdenadorSobremesa() {
-		Ordenadores generales = pedirDatosGenerales();
+		Ordenadores generales = pedirDatosGenerales("SOB");
 
 		System.out.println("Tipo de caja: ");
 		String tipoCaja = input.nextLine();
@@ -353,7 +390,6 @@ public class GestorOrdenadores {
 
 	/**
 	 * Alta Ordenador sobremesa por codigo
-	 * 
 	 * 
 	 */
 	public void altaOrdenadorSobremesa(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
@@ -370,14 +406,33 @@ public class GestorOrdenadores {
 	 */
 
 	public void altaOrdenadorPortatil() {
-		Ordenadores generales = pedirDatosGenerales();
+		Ordenadores generales = pedirDatosGenerales("POR");
 
-		System.out.println("Cantidad de pulgadas de la pantalla: ");
-		double pulgadas = input.nextInt();
+		double pulgadas = 0;
+		boolean pulgadasCorrectas = false;
+		do {
+			try {
+				System.out.println("Cantidad de pulgadas de la pantalla: ");
+				pulgadas = input.nextInt();
+				pulgadasCorrectas = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Error: debes introducir numeros.");
+				input.nextLine();
+			}
+		} while (!pulgadasCorrectas);
 
-		System.out.println("Tiempo de autonomía (horas): ");
-		double autonomia = input.nextInt();
-
+		double autonomia = 0;
+		boolean autonomiaCorrecta = false;
+		do {
+			try {
+				System.out.println("Tiempo de autonomía (horas): ");
+				autonomia = input.nextInt();
+				autonomiaCorrecta = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Error: debes introducir numeros.");
+				input.nextLine();
+			}
+		} while (!autonomiaCorrecta);
 		boolean webcam = true;
 
 		OrdenadorPortatil nuevoOrdenadorPortatil = new OrdenadorPortatil(generales.getTipoOrdenador(),
@@ -410,9 +465,10 @@ public class GestorOrdenadores {
 				webcam);
 		listaOrdenadores.add(nuevoOrdenadorPortatil);
 	}
-	
+
 	/**
 	 * Metodo para mostrar los ordenadores que estan sin asignar
+	 * 
 	 * @return
 	 */
 	public ArrayList<Ordenadores> ordenadoresDisponibles() {
@@ -561,19 +617,19 @@ public class GestorOrdenadores {
 	 * que no existe
 	 * 
 	 */
-	public void buscarUsuarioNombre() {
-		System.out.print("Introduce el nombre del usuario: ");
-		String nombreBuscar = input.nextLine();
-		boolean nombreEncontrado = false;
+	public void buscarUsuarioID() {
+		System.out.print("Introduce el ID del usuario: ");
+		int idBuscar = input.nextInt();
+		boolean idEncontrado = false;
 		for (Usuarios usu : listaUsuarios) {
-			if (usu.getNombre().equalsIgnoreCase(nombreBuscar)) {
+			if (usu.getIdUsuario() == idBuscar) {
 				System.out.println("Usuario encontrado");
 				System.out.println(usu);
-				nombreEncontrado = true;
+				idEncontrado = true;
 			}
 		}
-		if (!nombreEncontrado) {
-			System.out.println("No existe ningun usuario con ese nombre");
+		if (!idEncontrado) {
+			System.out.println("No existe ningun usuario con ese ID");
 		}
 	}
 
@@ -584,9 +640,9 @@ public class GestorOrdenadores {
 	 * @param nombre
 	 * @return
 	 */
-	public Usuarios buscarUsuarioNombre(String nombre) {
+	public Usuarios buscarUsuarioID(int idUsuario) {
 		for (Usuarios usu : listaUsuarios) {
-			if (usu.getNombre().equalsIgnoreCase(nombre)) {
+			if (usu.getIdUsuario() == idUsuario) {
 				return usu;
 			}
 		}
@@ -689,23 +745,24 @@ public class GestorOrdenadores {
 	 */
 
 	public void darDeBajaUsuario() {
-		System.out.print("Introduce el nombre del usuario que quieras dar de baja: ");
-		String nombre = input.nextLine();
+		System.out.print("Introduce el ID del usuario que quieras dar de baja: ");
+		int idUsuario = input.nextInt();
 		boolean usuarioExiste = false;
 		Iterator<Usuarios> iteradorUsuarios = listaUsuarios.iterator();
 		while (iteradorUsuarios.hasNext()) {
 			Usuarios usuario = iteradorUsuarios.next();
-			if (usuario.getNombre().equalsIgnoreCase(nombre)) {
+			if (usuario.getIdUsuario() == idUsuario) {
 				if (usuario.getOrdenador() != null) {
 					usuario.getOrdenador().setAsignado(false);
 				}
 				iteradorUsuarios.remove();
-				System.out.println("El usuario: [" + nombre + "] ha sido dado de baja de la empresa.");
+				System.out.println("El usuario: [ " + usuario.getNombre() + " " + usuario.getApellidos() + " ] "
+						+ "con el ID [ " + idUsuario + " ] ha sido dado de baja de la empresa.");
 				usuarioExiste = true;
 			}
 		}
 		if (!usuarioExiste) {
-			System.out.println("El usuario [" + nombre + "] no existe");
+			System.out.println("No existe ningun usuario con el ID [" + idUsuario);
 		}
 	}
 
@@ -772,8 +829,8 @@ public class GestorOrdenadores {
 	 * Asignacion de un ordenador a un usuario
 	 */
 	public void asignarOrdenadorAUsuario() {
-		System.out.print("Nombre del usuario: ");
-		String usuario = input.nextLine();
+		System.out.print("ID del usuario: ");
+		int usuarioid = input.nextInt();
 		System.out.print("Etiqueta del ordenador a asignar: ");
 		String etiquetaPC = input.nextLine();
 
@@ -782,7 +839,7 @@ public class GestorOrdenadores {
 		 * comparar los parametros metidos por teclado con los existentes
 		 */
 
-		Usuarios user = buscarUsuarioNombre(usuario);
+		Usuarios user = buscarUsuarioID(usuarioid);
 		Ordenadores pc = buscarOrdenadorPorEtiqueta(etiquetaPC);
 
 		if (user != null && pc != null) {
@@ -792,7 +849,7 @@ public class GestorOrdenadores {
 			 * y el pc introducidos por teclado existen
 			 * 
 			 */
-			System.out.println("El ordenador [" + etiquetaPC + "] ha sido asignado a " + usuario);
+			System.out.println("El ordenador [" + etiquetaPC + "] ha sido asignado a " + usuarioid);
 		} else {
 			System.out.println("Error: No se encontró el usuario o el ordenador.");
 		}

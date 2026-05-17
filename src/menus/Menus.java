@@ -119,7 +119,7 @@ public class Menus {
 			System.out.println("============================================");
 			System.out.println("||-----------MENU BUSCAR USUARIO----------||");
 			System.out.println("============================================");
-			System.out.println("||      1.-Buscar por nombre.             ||");
+			System.out.println("||      1.-Buscar por ID.                 ||");
 			System.out.println("||      2.-Buscar por su ordenador.       ||");
 			System.out.println("||      3.-Volver al menu principal.      ||");
 			System.out.println("============================================");
@@ -133,7 +133,7 @@ public class Menus {
 			switch (opcionBuscarUsuario) {
 			case 1:
 				System.out.println("1.-Buscar por nombre");
-				gestor.buscarUsuarioNombre();
+				gestor.buscarUsuarioID();
 				break;
 			case 2:
 				System.out.println("2.-Buscar por su ordenador");
