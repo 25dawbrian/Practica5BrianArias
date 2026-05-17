@@ -158,7 +158,7 @@ public class Usuarios {
 	 * @param nombre
 	 * @return
 	 */
-	public static boolean validarNombre(String nombre) {
+	public static boolean validarNombreYapellidos(String nombre) {
 	    boolean correcto = true;
 	    for(int i = 0; i < nombre.length(); i++) {
 	        char letra = nombre.charAt(i);
@@ -170,19 +170,7 @@ public class Usuarios {
 	    }
 	    return correcto;
 	}
-	
-	public static boolean validarApellidos(String apellido) {
-	    boolean correcto = true;
-	    for(int i = 0; i < apellido.length(); i++) {
-	        char letra = apellido.charAt(i);
-	        if((letra < 'A' || letra > 'Z')
-	                && (letra < 'a' || letra > 'z')
-	                && letra != ' ') {
-	            correcto = false;
-	        }
-	    }
-	    return correcto;
-	}
+
 	/**
 	 * Metodo para generar email automatico mediante
 	 * nombre y apellidos introducidos, añadiendo el dominio

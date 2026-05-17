@@ -70,15 +70,26 @@ public class GestorOrdenadores {
 	 * 
 	 */
 	public void altaUsuario() {
-		System.out.println("Introduce el ID del usuario: ");
-		int idUsuario = input.nextInt();
+		int idUsuario = 0;
+		boolean idCorrecto = false;
+		do {
+			try {
+				System.out.print("Introduce el ID del usuario: ");
+				idUsuario = input.nextInt();
+				input.nextLine();
+				idCorrecto = true;
+			} catch (InputMismatchException e) {
+				System.err.println("Error: debes introducir un numero");
+				input.nextLine();
+			}
+		} while (!idCorrecto);
 
 		String nombre;
 		boolean nombreCorrecto;
 		do {
 			System.out.print("Introduce el nombre: ");
 			nombre = input.nextLine();
-			nombreCorrecto = Usuarios.validarNombre(nombre);
+			nombreCorrecto = Usuarios.validarNombreYapellidos(nombre);
 			/** Llamada al metodo ValidarNombre para solo introducir letras */
 			if (!nombreCorrecto) {
 				System.err.println("Error: solo se permiten letras");
@@ -90,7 +101,7 @@ public class GestorOrdenadores {
 		do {
 			System.out.print("Introduce los apellidos: ");
 			apellidos = input.nextLine();
-			apellidosCorrecto = Usuarios.validarNombre(apellidos);
+			apellidosCorrecto = Usuarios.validarNombreYapellidos(apellidos);
 			/** Llamada al metodo ValidarApellidos para solo introducir letras */
 			if (!apellidosCorrecto) {
 				System.err.println("Error: solo se permiten letras");
@@ -99,8 +110,6 @@ public class GestorOrdenadores {
 
 		String email = "";
 		int opcionEmail;
-
-		System.out.println();
 		System.out.println("Selecciona el modo de introduccion del email: ");
 		do {
 			System.out.println("1.-Introducir email por teclado");
@@ -122,7 +131,7 @@ public class GestorOrdenadores {
 					 * "nombre@gmail.com"
 					 */
 					if (!emailValido) {
-						System.out.println("Formato incorrecto");
+						System.err.println("Formato incorrecto");
 					}
 				} while (!emailValido);
 				break;
@@ -136,7 +145,7 @@ public class GestorOrdenadores {
 				break;
 
 			default:
-				System.out.println("Opcion no contemplada");
+				System.err.println("Opcion no contemplada");
 				break;
 			}
 		} while (opcionEmail < 1 || opcionEmail > 2);
@@ -153,7 +162,7 @@ public class GestorOrdenadores {
 					System.err.println("Error: el usuario debe ser mayor de edad.");
 				}
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir numeros.");
+				System.err.println("Error: debes introducir un numero.");
 				input.nextLine();
 			}
 		} while (!edadCorrecta);
@@ -180,7 +189,7 @@ public class GestorOrdenadores {
 				nuevoUsuario.setDepartamento(listaDepartamentos.get(2));
 				break;
 			default:
-				System.out.println("Opcion incorrecta");
+				System.err.println("Opcion incorrecta");
 				System.out.println();
 			}
 		} while (opcionDepartamento < 1 || opcionDepartamento > 3);
@@ -229,7 +238,6 @@ public class GestorOrdenadores {
 		ordenador.setAsignado(true);
 		Usuarios nuevoUsuario = new Usuarios(idUsuario, nombre, apellidos, departamento, email, edad, ordenador);
 		listaUsuarios.add(nuevoUsuario);
-
 	}
 
 	/**
@@ -246,7 +254,7 @@ public class GestorOrdenadores {
 			etiquetaCorrecta = Ordenadores.validarEtiqueta(etiqueta, prefijo);
 			if (!etiquetaCorrecta) {
 				System.err.println("Formato incorrecto: prefijo / año de alta / numero de tres digitos");
-				System.out.println("Ejemplo: " + prefijo + "/2025/001");
+				System.out.println("Ejemplo valido: " + prefijo + "/2025/001");
 			}
 		} while (!etiquetaCorrecta);
 
@@ -257,7 +265,8 @@ public class GestorOrdenadores {
 			numeroSerie = input.nextLine();
 			numeroSerieCorrecta = Ordenadores.validarNumeroSerie(numeroSerie);
 			if (!numeroSerieCorrecta) {
-				System.err.println("Formato incorrecto. Ejemplo válido: 123ABC");
+				System.err.println("Formato incorrecto: 3 numeros y 3 letras");
+				System.out.println("Ejemplo valido: 123ABC");
 			}
 		} while (!numeroSerieCorrecta);
 
@@ -282,7 +291,7 @@ public class GestorOrdenadores {
 				capacidadMemoriaRAM = input.nextInt();
 				ramCorrecta = true;
 			} catch (InputMismatchException e) {
-				System.out.println("Error: debes introducir numeros");
+				System.err.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
 		} while (!ramCorrecta);
@@ -299,7 +308,7 @@ public class GestorOrdenadores {
 				almacenamiento = input.nextInt();
 				almacenamientoCorrecto = true;
 			} catch (InputMismatchException e) {
-				System.out.println("Error: debes introducir numeros");
+				System.err.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
 		} while (!almacenamientoCorrecto);
@@ -309,8 +318,8 @@ public class GestorOrdenadores {
 	}
 
 	/**
-	 * alta ordenador portatil por teclado pedimos datos generales y despues los
-	 * especificos de portatil
+	 * Alta ordenador torre por teclado: pedimos datos generales y despues los
+	 * especificos de la torre.
 	 *
 	 */
 	public void altaOrdenadorTorre() {
@@ -325,15 +334,26 @@ public class GestorOrdenadores {
 			try {
 				System.out.print("Potencia de la fuente de alimentacion (W): ");
 				potenciaFuenteAlimentacion = input.nextInt();
+				input.nextLine();
 				fuenteCorrecta = true;
 			} catch (InputMismatchException e) {
-				System.out.println("Error: debes introducir numeros");
+				System.err.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
 		} while (!fuenteCorrecta);
 
-		System.out.print("Tipo de refrigeracion (ventilador/liquida): ");
-		String refrigeracion = input.nextLine();
+		String refrigeracion;
+		boolean refrigeracionCorrecta = false;
+		do {
+			System.out.print("Tipo de refrigeracion (ventilador/liquida): ");
+			refrigeracion = input.nextLine();
+			if (refrigeracion.equalsIgnoreCase("ventilador") || refrigeracion.equalsIgnoreCase("liquida")) {
+				refrigeracionCorrecta = true;
+			} else {
+				System.err.println("Error: debes elegir entre ventilador o liquida.");
+			}
+
+		} while (!refrigeracionCorrecta);
 
 		OrdenadorTorre nuevoOrdenadorTorre = new OrdenadorTorre(generales.getTipoOrdenador(), generales.getModelo(),
 				generales.getProcesador(), generales.getTarjetaGrafica(), generales.getCapacidadMemoriaRAM(),
@@ -378,8 +398,18 @@ public class GestorOrdenadores {
 	public void altaOrdenadorSobremesa() {
 		Ordenadores generales = pedirDatosGenerales("SOB");
 
-		System.out.println("Tipo de caja: ");
-		String tipoCaja = input.nextLine();
+		String tipoCaja;
+		boolean tipoCajaCorrecta = false;
+		do {
+			System.out.println("Tipo de caja (Mini/Barebone/Slim): ");
+			tipoCaja = input.nextLine();
+			if (tipoCaja.equalsIgnoreCase("Mini") || tipoCaja.equalsIgnoreCase("Barebone")
+					|| tipoCaja.equalsIgnoreCase("Slim")) {
+				tipoCajaCorrecta = true;
+			} else {
+				System.out.println("Error: debes elegir entre mini, barebone o slim");
+			}
+		} while (!tipoCajaCorrecta);
 
 		OrdenadorSobremesa nuevoOrdenadorSobremesa = new OrdenadorSobremesa(generales.getTipoOrdenador(),
 				generales.getModelo(), generales.getProcesador(), generales.getTarjetaGrafica(),
@@ -416,7 +446,7 @@ public class GestorOrdenadores {
 				pulgadas = input.nextInt();
 				pulgadasCorrectas = true;
 			} catch (InputMismatchException e) {
-				System.out.println("Error: debes introducir numeros.");
+				System.err.println("Error: debes introducir numeros.");
 				input.nextLine();
 			}
 		} while (!pulgadasCorrectas);
