@@ -2,8 +2,9 @@ package clases;
 
 public class Departamentos {
 	/**
-	 * Clase Departamentos
-	 * Este se le asignara a cada usuario
+	 * Clase Departamentos. Este se le asignara a cada usuario
+	 * 
+	 * @author Brian Arias
 	 */
 	private String nombreDepartamento;
 

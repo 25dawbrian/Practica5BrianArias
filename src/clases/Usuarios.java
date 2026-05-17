@@ -2,7 +2,7 @@ package clases;
 	/**
 	 * clase Usuarios
 	 * contiene los objetos Departamento y Ordenadores
-	 * @author brian
+	 * @author Brian Arias
 	 *
 	 */
 public class Usuarios {
@@ -143,8 +143,6 @@ public class Usuarios {
 	    if (arrobaEncontrada && puntoEncontrado
 	            && posArroba < posPunto) {
 	        System.out.println("Correo valido");
-	      
-	        System.out.println();
 	        return true;
 	    }
 	    else {

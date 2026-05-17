@@ -1,8 +1,7 @@
 package clases;
 
 /**
- * clase Ordenadores clase padre con los atributos generales de todos los
- * ordenadores
+ * Clase padre con los atributos generales de todos los ordenadores
  * 
  * @author Brian Arias
  */
@@ -128,8 +127,8 @@ public class Ordenadores {
 			   "\n===============================\n";
 	}
 	/**
-	 * Metodo para validar el numero de serie y que cumpla formato de 3 letras y 3
-	 * numeros
+	 * Metodo para validar el numero de serie y que cumpla formato de 3 numeros y 3
+	 * letras
 	 * Ejemplo de numero de serie: 123ABC
 	 */
 	public static boolean validarNumeroSerie(String numeroSerie) {
@@ -155,7 +154,7 @@ public class Ordenadores {
 
 	/**
 	 * Metodo para validar la etiqueta del ordenador
-	 * Recibe el la etiqueta y el prefijo segun el ordenador
+	 * Recibe la etiqueta y el prefijo segun el ordenador
 	 * Fomato: prefijo / añon de alta / numero de 3 digitos
 	 * Prefijo Torre: TOR
 	 * Prefijo Sobremesa: SOB

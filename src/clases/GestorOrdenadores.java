@@ -5,6 +5,13 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * En esta clase almacenamos los metodos y funcionalidades del programa Metodos:
+ * altas, buscar, eliminar, listar, existe y desasignar
+ * 
+ * @author Brian Arias
+ *
+ */
 public class GestorOrdenadores {
 	/**
 	 * En esta clase almacenamos los metodos y funcionalidades del programaç
@@ -187,7 +194,7 @@ public class GestorOrdenadores {
 			nombreCorrecto = Usuarios.validarNombreYapellidos(nombre);
 			/** Llamada al metodo ValidarNombre para solo introducir letras */
 			if (!nombreCorrecto) {
-				System.err.println("Error: solo se permiten letras");
+				System.out.println("Error: solo se permiten letras");
 			}
 		} while (!nombreCorrecto);
 
@@ -199,7 +206,7 @@ public class GestorOrdenadores {
 			apellidosCorrecto = Usuarios.validarNombreYapellidos(apellidos);
 			/** Llamada al metodo ValidarApellidos para solo introducir letras */
 			if (!apellidosCorrecto) {
-				System.err.println("Error: solo se permiten letras");
+				System.out.println("Error: solo se permiten letras");
 			}
 		} while (!apellidosCorrecto);
 
@@ -226,7 +233,7 @@ public class GestorOrdenadores {
 					 * "nombre@gmail.com"
 					 */
 					if (!emailValido) {
-						System.err.println("Formato incorrecto");
+						System.out.println("Formato incorrecto. Ejemplo valido: usuario@gmail.com");
 					}
 				} while (!emailValido);
 				break;
@@ -240,7 +247,7 @@ public class GestorOrdenadores {
 				break;
 
 			default:
-				System.err.println("Opcion no contemplada");
+				System.out.println("Opcion no contemplada");
 				break;
 			}
 		} while (opcionEmail < 1 || opcionEmail > 2);
@@ -254,16 +261,16 @@ public class GestorOrdenadores {
 				input.nextLine();
 				edadCorrecta = Usuarios.validarEdad(edad);
 				if (!edadCorrecta) {
-					System.err.println("Error: el usuario debe ser mayor de edad.");
+					System.out.println("Error: el usuario debe ser mayor de edad.");
 				}
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir un numero.");
+				System.out.println("Error: debes introducir un numero.");
 				input.nextLine();
 			}
 		} while (!edadCorrecta);
 
-		// asignacion del departamento
 		Usuarios nuevoUsuario = new Usuarios(idUsuario, nombre, apellidos, null, email, edad, null);
+		// asignacion del departamento
 		int opcionDepartamento;
 		do {
 			System.out.println("Asignacion del departamento");
@@ -284,7 +291,7 @@ public class GestorOrdenadores {
 				nuevoUsuario.setDepartamento(listaDepartamentos.get(2));
 				break;
 			default:
-				System.err.println("Opcion incorrecta");
+				System.out.println("Opcion incorrecta");
 				System.out.println();
 			}
 		} while (opcionDepartamento < 1 || opcionDepartamento > 3);
@@ -304,7 +311,7 @@ public class GestorOrdenadores {
 					disponibles.get(opcionOrdenador - 1).setAsignado(true);
 					opcionCorrecta = true;
 				} else {
-					System.err.println("Error: ordenador no disponible");
+					System.out.println("Error: ordenador no disponible");
 				}
 			} catch (Exception e) {
 				System.err.println("Error: debes introducir un numero");
@@ -374,7 +381,7 @@ public class GestorOrdenadores {
 				capacidadMemoriaRAM = input.nextInt();
 				ramCorrecta = true;
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir numeros");
+				System.out.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
 		} while (!ramCorrecta);
@@ -392,7 +399,7 @@ public class GestorOrdenadores {
 				input.nextLine();
 				almacenamientoCorrecto = true;
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir numeros");
+				System.out.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
 		} while (!almacenamientoCorrecto);
@@ -421,7 +428,7 @@ public class GestorOrdenadores {
 				input.nextLine();
 				fuenteCorrecta = true;
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir numeros");
+				System.out.println("Error: debes introducir numeros");
 				input.nextLine();
 			}
 		} while (!fuenteCorrecta);
@@ -434,7 +441,7 @@ public class GestorOrdenadores {
 			if (refrigeracion.equalsIgnoreCase("ventilador") || refrigeracion.equalsIgnoreCase("liquida")) {
 				refrigeracionCorrecta = true;
 			} else {
-				System.err.println("Error: debes elegir entre ventilador o liquida.");
+				System.out.println("Error: debes elegir entre ventilador o liquida.");
 			}
 
 		} while (!refrigeracionCorrecta);
@@ -475,9 +482,9 @@ public class GestorOrdenadores {
 				generales.getModelo(), generales.getProcesador(), generales.getTarjetaGrafica(),
 				generales.getCapacidadMemoriaRAM(), generales.getAlmacenamiento(), generales.getNumeroSerie(),
 				generales.getEtiqueta(), tipoCaja);
-		
+
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
-		
+
 		System.out.println("Ordenador añadido correctamente");
 		System.out.println();
 	}
@@ -499,7 +506,7 @@ public class GestorOrdenadores {
 				pulgadas = input.nextInt();
 				pulgadasCorrectas = true;
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir numeros.");
+				System.out.println("Error: debes introducir numeros.");
 				input.nextLine();
 			}
 		} while (!pulgadasCorrectas);
@@ -600,7 +607,7 @@ public class GestorOrdenadores {
 				input.nextLine();
 				opcionCorrecta = true;
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir numeros.");
+				System.out.println("Error: debes introducir numeros.");
 				input.nextLine();
 			}
 			if (opcionCorrecta) {
@@ -748,8 +755,8 @@ public class GestorOrdenadores {
 	}
 
 	/**
-	 * Buscar etiqueta del ordenador por teclado recorremos
-	 * arrayList listaOrdenadores, si la etiqueta introducida es igual a la obtenida
+	 * Buscar etiqueta del ordenador por teclado recorremos arrayList
+	 * listaOrdenadores, si la etiqueta introducida es igual a la obtenida
 	 * (.getEtiqueta) lo devolvera, sino imprimira que no existe
 	 * 
 	 */
@@ -863,7 +870,8 @@ public class GestorOrdenadores {
 				ordenadorEliminar = ordenador;
 				iteradorOrdenadores.remove();
 
-				System.out.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
+				System.out
+						.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
 				ordenadorExiste = true;
 			}
 		}

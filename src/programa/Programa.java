@@ -30,15 +30,16 @@ public class Programa {
 			System.out.println("==========================================");
 			System.out.println("||----------MENU PRINCIPAL--------------||");
 			System.out.println("==========================================");
-			System.out.println("||      1.-Dar de alta un usuario       ||");
-			System.out.println("||      2.-Dar de alta un ordenador     ||");
-			System.out.println("||      3.-Listar usuarios              ||");
-			System.out.println("||      4.-Listar ordenadores           ||");
-			System.out.println("||      5.-Buscar usuario               ||");
-			System.out.println("||      6.-Buscar ordenador             ||");
-			System.out.println("||      7.-Dar de baja un usuario       ||");
-			System.out.println("||      8.-Eliminar un ordenador        ||");
-			System.out.println("||      9.-Asignar ordenador            ||");
+			System.out.println("||      1.-Dar de alta un usuario.      ||");
+			System.out.println("||      2.-Dar de alta un ordenador.    ||");
+			System.out.println("||      3.-Listar usuarios.             ||");
+			System.out.println("||      4.-Listar ordenadores.          ||");
+			System.out.println("||      5.-Buscar usuario.              ||");
+			System.out.println("||      6.-Buscar ordenador.            ||");
+			System.out.println("||      7.-Dar de baja un usuario.      ||");
+			System.out.println("||      8.-Eliminar un ordenador.       ||");
+			System.out.println("||      9.-Asignar ordenador.           ||");
+			System.out.println("||     10.-Salir del gestor.            ||");
 			System.out.println("==========================================");
 			try {
 				System.out.print("Selecciona una accion: ");
@@ -87,6 +88,8 @@ public class Programa {
 					System.out.println("9.-Asignar ordenador");
 					gestor.asignarOrdenadorAUsuario();
 					break;
+				case 10:
+					System.out.println("Has salido del gestor del inventario");
 				default:
 					System.out.println("Opcion no contemplada");
 					break;
