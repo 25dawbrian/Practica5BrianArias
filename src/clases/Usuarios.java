@@ -153,7 +153,7 @@ public class Usuarios {
 	}
 	
 	/**
-	 * Metodo para validar el nombre introducido por teclado
+	 * Metodo para validar el nombre y apellidos introducido por teclado
 	 * solo permite meter letras
 	 * @param nombre
 	 * @return

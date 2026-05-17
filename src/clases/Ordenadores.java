@@ -130,6 +130,7 @@ public class Ordenadores {
 	/**
 	 * Metodo para validar el numero de serie y que cumpla formato de 3 letras y 3
 	 * numeros
+	 * Ejemplo de numero de serie: 123ABC
 	 */
 	public static boolean validarNumeroSerie(String numeroSerie) {
 		boolean correcto = true;
@@ -154,6 +155,13 @@ public class Ordenadores {
 
 	/**
 	 * Metodo para validar la etiqueta del ordenador
+	 * Recibe el la etiqueta y el prefijo segun el ordenador
+	 * Fomato: prefijo / añon de alta / numero de 3 digitos
+	 * Prefijo Torre: TOR
+	 * Prefijo Sobremesa: SOB
+	 * Prefijo Portatil: POR
+	 * Ejemplo de etiqueta: POR/2025/008
+	 * 
 	 * @param etiqueta
 	 * @param prefijo
 	 * @return

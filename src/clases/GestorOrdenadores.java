@@ -26,6 +26,15 @@ public class GestorOrdenadores {
 	 * 
 	 */
 	public void datosIniciales() {
+		// damos de alta 3 departamentos(Financiero, Diseño 3D y Marketing)
+		Departamentos financiero = new Departamentos("Financiero");
+		Departamentos disennio3d = new Departamentos("Diseño 3D");
+		Departamentos marketing = new Departamentos("Marketing");
+
+		listaDepartamentos.add(financiero);
+		listaDepartamentos.add(disennio3d);
+		listaDepartamentos.add(marketing);
+
 		// damos de alta 2 ordenadores de cada tipo
 		altaOrdenadorTorre("Torre", "Legion T5", "Ryzen 7 7600G", "RTX 4070", 32, 1000, "Liquida", "265EIR",
 				"TOR/2025/001", 850);
@@ -42,15 +51,6 @@ public class GestorOrdenadores {
 		altaOrdenadorPortatil("Portatil", "Galaxy Book 4", "Intel Core i7 11900K", "GTX 1660", 16, 500, "086GEQ",
 				"POR/2026/001", 20, 20, true);
 
-		// damos de alta 3 departamentos(Financiero, Diseño 3D y Marketing)
-		Departamentos financiero = new Departamentos("Financiero");
-		Departamentos disennio3d = new Departamentos("Diseño 3D");
-		Departamentos marketing = new Departamentos("Marketing");
-
-		listaDepartamentos.add(financiero);
-		listaDepartamentos.add(disennio3d);
-		listaDepartamentos.add(marketing);
-
 		// damos de alta 3 usuarios
 		altaUsuario(1, "Eva", "Lopez", financiero, "evalopez@briancompany.com", 26, listaOrdenadores.get(0));
 		altaUsuario(2, "Luis", "Perez", disennio3d, "luisperez@briancompany.com", 32, listaOrdenadores.get(2));
@@ -66,7 +66,97 @@ public class GestorOrdenadores {
 	}
 
 	/**
-	 * Metodo para dar de alta usuario por teclado
+	 * Alta usuario por codigo
+	 * 
+	 * @param idUsuario
+	 * @param nombre
+	 * @param apellidos
+	 * @param departamento
+	 * @param email
+	 * @param edad
+	 * @param ordenador
+	 */
+	public void altaUsuario(int idUsuario, String nombre, String apellidos, Departamentos departamento, String email,
+			int edad, Ordenadores ordenador) {
+		ordenador.setAsignado(true);
+		Usuarios nuevoUsuario = new Usuarios(idUsuario, nombre, apellidos, departamento, email, edad, ordenador);
+		listaUsuarios.add(nuevoUsuario);
+	}
+
+	/**
+	 * Alta ordenador de torre
+	 * 
+	 * @param tipoOrdenador
+	 * @param modelo
+	 * @param procesador
+	 * @param tarjetaGrafica
+	 * @param capacidadMemoriaRAM
+	 * @param almacenamiento
+	 * @param refrigeracion
+	 * @param numeroSerie
+	 * @param etiqueta
+	 * @param potenciaFuenteAlimentacion
+	 */
+	public void altaOrdenadorTorre(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
+			int capacidadMemoriaRAM, int almacenamiento, String refrigeracion, String numeroSerie, String etiqueta,
+			int potenciaFuenteAlimentacion) {
+
+		OrdenadorTorre nuevoOrdenadorTorre = new OrdenadorTorre(tipoOrdenador, modelo, procesador, tarjetaGrafica,
+				capacidadMemoriaRAM, almacenamiento, refrigeracion, numeroSerie, etiqueta, potenciaFuenteAlimentacion);
+
+		listaOrdenadores.add(nuevoOrdenadorTorre);
+	}
+
+	/**
+	 * Alta ordenador de sobremesa
+	 * 
+	 * @param tipoOrdenador
+	 * @param modelo
+	 * @param procesador
+	 * @param tarjetaGrafica
+	 * @param capacidadMemoriaRAM
+	 * @param almacenamiento
+	 * @param numeroSerie
+	 * @param etiqueta
+	 * @param tipoCaja
+	 */
+	public void altaOrdenadorSobremesa(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
+			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, String tipoCaja) {
+
+		OrdenadorSobremesa nuevoOrdenadorSobremesa = new OrdenadorSobremesa(tipoOrdenador, modelo, procesador,
+				tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie, etiqueta, tipoCaja);
+
+		listaOrdenadores.add(nuevoOrdenadorSobremesa);
+	}
+
+	/**
+	 * Alta ordenador portatil
+	 * 
+	 * @param tipoOrdenador
+	 * @param modelo
+	 * @param procesador
+	 * @param tarjetaGrafica
+	 * @param capacidadMemoriaRAM
+	 * @param almacenamiento
+	 * @param numeroSerie
+	 * @param etiqueta
+	 * @param pulgadas
+	 * @param autonomia
+	 * @param webcam
+	 */
+	public void altaOrdenadorPortatil(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
+			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, double pulgadas,
+			double autonomia, boolean webcam) {
+
+		OrdenadorPortatil nuevoOrdenadorPortatil = new OrdenadorPortatil(tipoOrdenador, modelo, procesador,
+				tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie, etiqueta, pulgadas, autonomia,
+				webcam);
+
+		listaOrdenadores.add(nuevoOrdenadorPortatil);
+	}
+
+	/**
+	 * Alta usuario por teclado
 	 * 
 	 */
 	public void altaUsuario() {
@@ -227,25 +317,6 @@ public class GestorOrdenadores {
 		System.out.println("Usuario añadido correctamente");
 	}
 
-	
-	/**
-	 * Alta usuario por codigo
-	 * 
-	 * @param idUsuario
-	 * @param nombre
-	 * @param apellidos
-	 * @param departamento
-	 * @param email
-	 * @param edad
-	 * @param ordenador
-	 */
-	public void altaUsuario(int idUsuario, String nombre, String apellidos, Departamentos departamento, String email,
-			int edad, Ordenadores ordenador) {
-		ordenador.setAsignado(true);
-		Usuarios nuevoUsuario = new Usuarios(idUsuario, nombre, apellidos, departamento, email, edad, ordenador);
-		listaUsuarios.add(nuevoUsuario);
-	}
-
 	/**
 	 * Metodo para pedir datos generales de los ordenadores
 	 * 
@@ -380,30 +451,6 @@ public class GestorOrdenadores {
 	}
 
 	/**
-	 * Alta Ordenador Torre por codigo
-	 * 
-	 * @param tipoOrdenador
-	 * @param modelo
-	 * @param procesador
-	 * @param tarjetaGrafica
-	 * @param capacidadMemoriaRAM
-	 * @param almacenamiento
-	 * @param refrigeracion
-	 * @param numeroSerie
-	 * @param etiqueta
-	 * @param potenciaFuenteAlimentacion
-	 */
-	public void altaOrdenadorTorre(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
-			int capacidadMemoriaRAM, int almacenamiento, String refrigeracion, String numeroSerie, String etiqueta,
-			int potenciaFuenteAlimentacion) {
-
-		OrdenadorTorre nuevoOrdenadorTorre = new OrdenadorTorre(tipoOrdenador, modelo, procesador, tarjetaGrafica,
-				capacidadMemoriaRAM, almacenamiento, refrigeracion, numeroSerie, etiqueta, potenciaFuenteAlimentacion);
-
-		listaOrdenadores.add(nuevoOrdenadorTorre);
-	}
-
-	/**
 	 * alta ordenador portatil por teclado pedimos datos generales y despues los
 	 * especificos de sobremesa
 	 *
@@ -428,20 +475,11 @@ public class GestorOrdenadores {
 				generales.getModelo(), generales.getProcesador(), generales.getTarjetaGrafica(),
 				generales.getCapacidadMemoriaRAM(), generales.getAlmacenamiento(), generales.getNumeroSerie(),
 				generales.getEtiqueta(), tipoCaja);
+		
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
+		
 		System.out.println("Ordenador añadido correctamente");
 		System.out.println();
-	}
-
-	/**
-	 * Alta Ordenador sobremesa por codigo
-	 * 
-	 */
-	public void altaOrdenadorSobremesa(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
-			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, String tipoCaja) {
-		OrdenadorSobremesa nuevoOrdenadorSobremesa = new OrdenadorSobremesa(tipoOrdenador, modelo, procesador,
-				tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie, etiqueta, tipoCaja);
-		listaOrdenadores.add(nuevoOrdenadorSobremesa);
 	}
 
 	/**
@@ -485,48 +523,6 @@ public class GestorOrdenadores {
 				generales.getCapacidadMemoriaRAM(), generales.getAlmacenamiento(), generales.getNumeroSerie(),
 				generales.getEtiqueta(), pulgadas, autonomia, webcam);
 		listaOrdenadores.add(nuevoOrdenadorPortatil);
-	}
-
-	/**
-	 * alta ordenador portatil
-	 * 
-	 * @param tipoOrdenador
-	 * @param modelo
-	 * @param procesador
-	 * @param tarjetaGrafica
-	 * @param capacidadMemoriaRAM
-	 * @param almacenamiento
-	 * @param numeroSerie
-	 * @param etiqueta
-	 * @param pulgadas
-	 * @param autonomia
-	 * @param webcam
-	 */
-	public void altaOrdenadorPortatil(String tipoOrdenador, String modelo, String procesador, String tarjetaGrafica,
-			int capacidadMemoriaRAM, int almacenamiento, String numeroSerie, String etiqueta, double pulgadas,
-			double autonomia, boolean webcam) {
-		OrdenadorPortatil nuevoOrdenadorPortatil = new OrdenadorPortatil(tipoOrdenador, modelo, procesador,
-				tarjetaGrafica, capacidadMemoriaRAM, almacenamiento, numeroSerie, etiqueta, pulgadas, autonomia,
-				webcam);
-		listaOrdenadores.add(nuevoOrdenadorPortatil);
-	}
-
-	/**
-	 * Metodo para mostrar los ordenadores que estan sin asignar
-	 * 
-	 * @return
-	 */
-	public ArrayList<Ordenadores> ordenadoresDisponibles() {
-		ArrayList<Ordenadores> disponibles = new ArrayList<>();
-		int contador = 1;
-		for (Ordenadores ord : listaOrdenadores) {
-			if (!ord.isAsignado()) {
-				disponibles.add(ord);
-				System.out.println("Ordenador " + contador + ".- " + ord);
-				contador++;
-			}
-		}
-		return disponibles;
 	}
 
 	/**
@@ -645,6 +641,24 @@ public class GestorOrdenadores {
 	}
 
 	/**
+	 * Metodo para mostrar los ordenadores que estan sin asignar
+	 * 
+	 * @return
+	 */
+	public ArrayList<Ordenadores> ordenadoresDisponibles() {
+		ArrayList<Ordenadores> disponibles = new ArrayList<>();
+		int contador = 1;
+		for (Ordenadores ord : listaOrdenadores) {
+			if (!ord.isAsignado()) {
+				disponibles.add(ord);
+				System.out.println("Ordenador " + contador + ".- " + ord);
+				contador++;
+			}
+		}
+		return disponibles;
+	}
+
+	/**
 	 * Metodo para listar usuarios recorremos array, si no esta vacio se muestra
 	 * 
 	 */
@@ -653,28 +667,6 @@ public class GestorOrdenadores {
 			if (usu != null) {
 				System.out.println(usu);
 			}
-		}
-	}
-
-	/**
-	 * Metodo para buscar por nombre recorremos array, si el nombre del usuario
-	 * introducido coincide con el obtenido (.getNombre) se muestra, sino, imprime
-	 * que no existe
-	 * 
-	 */
-	public void buscarUsuarioID() {
-		System.out.print("Introduce el ID del usuario: ");
-		int idBuscar = input.nextInt();
-		boolean idEncontrado = false;
-		for (Usuarios usu : listaUsuarios) {
-			if (usu.getIdUsuario() == idBuscar) {
-				System.out.println("Usuario encontrado");
-				System.out.println(usu);
-				idEncontrado = true;
-			}
-		}
-		if (!idEncontrado) {
-			System.out.println("No existe ningun usuario con ese ID");
 		}
 	}
 
@@ -692,6 +684,27 @@ public class GestorOrdenadores {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Buscar ID por teclado: recorremos array, si el nombre del usuario introducido
+	 * coincide con el obtenido (.getNombre) se muestra, sino, imprime que no existe
+	 * 
+	 */
+	public void buscarUsuarioID() {
+		System.out.print("Introduce el ID del usuario: ");
+		int idBuscar = input.nextInt();
+		boolean idEncontrado = false;
+		for (Usuarios usu : listaUsuarios) {
+			if (usu.getIdUsuario() == idBuscar) {
+				System.out.println("Usuario encontrado");
+				System.out.println(usu);
+				idEncontrado = true;
+			}
+		}
+		if (!idEncontrado) {
+			System.out.println("No existe ningun usuario con ese ID");
+		}
 	}
 
 	/**
@@ -720,7 +733,22 @@ public class GestorOrdenadores {
 	}
 
 	/**
-	 * metodo para buscar ordenador por etiqueta introducida por teclado recorremos
+	 * Metodo para buscar ordenador por etiqueta
+	 * 
+	 * @param Ordenador
+	 * @return
+	 */
+	public Ordenadores buscarOrdenadorPorEtiqueta(String etiqueta) {
+		for (Ordenadores ord : listaOrdenadores) {
+			if (ord.getEtiqueta().equalsIgnoreCase(etiqueta)) {
+				return ord;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Buscar etiqueta del ordenador por teclado recorremos
 	 * arrayList listaOrdenadores, si la etiqueta introducida es igual a la obtenida
 	 * (.getEtiqueta) lo devolvera, sino imprimira que no existe
 	 * 
@@ -739,21 +767,6 @@ public class GestorOrdenadores {
 		if (!etiquetaPCEncontrada) {
 			System.out.println("Este ordenador no existe");
 		}
-	}
-
-	/**
-	 * Metodo para buscar ordenador por etiquete
-	 * 
-	 * @param Ordenador
-	 * @return
-	 */
-	public Ordenadores buscarOrdenadorPorEtiqueta(String etiqueta) {
-		for (Ordenadores ord : listaOrdenadores) {
-			if (ord.getEtiqueta().equalsIgnoreCase(etiqueta)) {
-				return ord;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -850,8 +863,7 @@ public class GestorOrdenadores {
 				ordenadorEliminar = ordenador;
 				iteradorOrdenadores.remove();
 
-				System.out
-						.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
+				System.out.println("El ordenador con la etiqueta [ " + etiqueta + " ] ha sido eliminado del inventario.");
 				ordenadorExiste = true;
 			}
 		}
@@ -870,11 +882,9 @@ public class GestorOrdenadores {
 		}
 	}
 
-	
-	
 	/**
-	 * Metodo para comprobar que existe la etiqueta del ordenador al
-	 * darlo de alta
+	 * Metodo para comprobar que existe la etiqueta del ordenador al darlo de alta
+	 * 
 	 * @param etiqueta
 	 * @return
 	 */
@@ -886,9 +896,11 @@ public class GestorOrdenadores {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Metodo para comprobar que existe el numero de serie del ordenador al darlo de alta
+	 * Metodo para comprobar que existe el numero de serie del ordenador al darlo de
+	 * alta
+	 * 
 	 * @param numeroSerie
 	 * @return
 	 */
@@ -900,8 +912,10 @@ public class GestorOrdenadores {
 		}
 		return false;
 	}
+
 	/**
 	 * Metodo para comprobar que existe el ID del usuario al darlo de alta
+	 * 
 	 * @param idUsuario
 	 * @return
 	 */
@@ -913,7 +927,7 @@ public class GestorOrdenadores {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Asignacion de un ordenador a un usuario
 	 */

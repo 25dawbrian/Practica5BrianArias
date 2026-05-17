@@ -10,19 +10,20 @@ import java.util.Scanner;
 import clases.GestorOrdenadores;
 
 public class Menus {
-	
+
 	Scanner input = new Scanner(System.in);
 	private GestorOrdenadores gestor;
 
 	public Menus(GestorOrdenadores gestor) {
 		this.gestor = gestor;
 	}
-	
+
 	/**
-	 * Menu de altas
+	 * Menu de altas. Controlando excepcion para solo introducir numeros
 	 */
 	public void menuAltas() {
-		int opcionAlta;
+		int opcionAlta = 0;
+		boolean opcionCorrecta = false;
 		do {
 			System.out.println("============================================");
 			System.out.println("||---------------MENU ALTAS---------------||");
@@ -32,40 +33,50 @@ public class Menus {
 			System.out.println("||      3.-Dar de alta un portatil.       ||");
 			System.out.println("||      4.-Volver al menu principal.      ||");
 			System.out.println("============================================");
-			System.out.print("Selecciona una accion: ");
-			opcionAlta = input.nextInt();
-			switch (opcionAlta) {
-			case 1:
-				System.out.println("1.-Dar de alta una torre");
-				gestor.altaOrdenadorTorre();
-				;
-				break;
-			case 2:
-				System.out.println("2.-Dar de alta un sobremesa");
-				gestor.altaOrdenadorSobremesa();
-				break;
-			case 3:
-				System.out.println("3.-Dar de alta un portatil");
-				gestor.altaOrdenadorPortatil();
-				break;
-			case 4:
-				System.out.println("4.-Volver al menu principal");
-				System.out.println("Has vuelto al menu principal");
-				System.out.println("");
-				break;
-			default:
-				System.out.println("Opcion no contemplada");
-				break;
+			try {
+				System.out.print("Selecciona una accion: ");
+				opcionAlta = input.nextInt();
+				input.nextLine();
+				opcionCorrecta = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Error: debes introducir un numero");
+				input.nextLine();
 			}
-
+			if (opcionCorrecta) {
+				System.out.println();
+				switch (opcionAlta) {
+				case 1:
+					System.out.println("1.-Dar de alta una torre");
+					gestor.altaOrdenadorTorre();
+					;
+					break;
+				case 2:
+					System.out.println("2.-Dar de alta un sobremesa");
+					gestor.altaOrdenadorSobremesa();
+					break;
+				case 3:
+					System.out.println("3.-Dar de alta un portatil");
+					gestor.altaOrdenadorPortatil();
+					break;
+				case 4:
+					System.out.println("4.-Volver al menu principal");
+					System.out.println("Has vuelto al menu principal");
+					System.out.println("");
+					break;
+				default:
+					System.out.println("Opcion no contemplada");
+					break;
+				}
+			}
 		} while (opcionAlta != 4);
 	}
-	
+
 	/**
-	 * Menu de listar
+	 * Menu de listar. Controlando excepcion para solo introducir numeros
 	 */
 	public void menuListar() {
-		int opcionListar;
+		int opcionListar = 0;
+		boolean opcionCorrecta = false;
 		do {
 			System.out.println("====================================================");
 			System.out.println("||------------------MENU LISTAR-------------------||");
@@ -77,41 +88,49 @@ public class Menus {
 			System.out.println("||      5.-Listar todos los ordenadores.          ||");
 			System.out.println("||      6.-Volver al menu principal.              ||");
 			System.out.println("====================================================");
-			System.out.print("Selecciona una accion: ");
-			opcionListar = input.nextInt();
-			switch (opcionListar) {
-			case 1:
-				System.out.println("1.-Listar por torres");
-				gestor.listarTorres();
-				break;
-			case 2:
-				System.out.println("2.-Listar por sobremesas");
-				gestor.listarSobremesas();
-				break;
-			case 3:
-				System.out.println("3.-Listar por portatil");
-				gestor.listarPortatiles();
-				break;
-			case 4:
-				gestor.listarOrdenadoresPorDepartamento();
-				break;
-			case 5:
-				System.out.println("5.-Listar todos los ordenadores");
-				gestor.listarOrdenadores();
-				break;
-			case 6:
-				System.out.println("Volver al menu principal");
-				break;
-			default:
-				System.out.println("Opcion no contemplada");
-				break;
+			try {
+				System.out.print("Selecciona una accion: ");
+				opcionListar = input.nextInt();
+				input.nextLine();
+				opcionCorrecta = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Error: debes introducir un numero");
+				input.nextLine();
 			}
-
+			if (opcionCorrecta) {
+				switch (opcionListar) {
+				case 1:
+					System.out.println("1.-Listar por torres");
+					gestor.listarTorres();
+					break;
+				case 2:
+					System.out.println("2.-Listar por sobremesas");
+					gestor.listarSobremesas();
+					break;
+				case 3:
+					System.out.println("3.-Listar por portatil");
+					gestor.listarPortatiles();
+					break;
+				case 4:
+					gestor.listarOrdenadoresPorDepartamento();
+					break;
+				case 5:
+					System.out.println("5.-Listar todos los ordenadores");
+					gestor.listarOrdenadores();
+					break;
+				case 6:
+					System.out.println("Volver al menu principal");
+					break;
+				default:
+					System.out.println("Opcion no contemplada");
+					break;
+				}
+			}
 		} while (opcionListar != 6);
 	}
-	
+
 	/**
-	 * Menu de buscar usuario
+	 * Menu de buscar usuario. Controlando excepcion para solo introducir numeros
 	 */
 	public void menuBuscarUsuario() {
 		int opcionBuscarUsuario = 0;
@@ -148,9 +167,9 @@ public class Menus {
 			}
 		} while (opcionBuscarUsuario != 3);
 	}
-	
+
 	/**
-	 * Menu de buscar ordenador
+	 * Menu de buscar ordenador. Controlando excepcion para solo introducir numeros
 	 */
 	public void menuBuscarOrdenador() {
 		int opcionBuscarOrdenador = 0;
