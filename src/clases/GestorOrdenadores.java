@@ -14,8 +14,8 @@ import java.util.Scanner;
  */
 public class GestorOrdenadores {
 	/**
-	 * En esta clase almacenamos los metodos y funcionalidades del programaç
-	 * Metodos: altas, buscar, eliminar, listar y desasignar
+	 * En esta clase almacenamos los metodos y funcionalidades del programa Metodos:
+	 * altas, buscar, eliminar, listar y desasignar
 	 */
 	Scanner input = new Scanner(System.in);
 	private ArrayList<Ordenadores> listaOrdenadores;
@@ -296,10 +296,17 @@ public class GestorOrdenadores {
 			}
 		} while (opcionDepartamento < 1 || opcionDepartamento > 3);
 
-		// mostrar ordenadores disponibles
+		/**
+		 * Se muestran los ordenadores disponibles
+		 */
 		ArrayList<Ordenadores> disponibles = ordenadoresDisponibles();
 
-		// asignacion del ordenador
+		/**
+		 * Se seleccionara un opcion entre 1 y la ultima posicion de los ordenadores
+		 * disponibles Al seleccionarlo, se le asignara el elegido y la asignacion del
+		 * ordenador pasa a ser true Se resta 1 para elejir la posicion correcta en el
+		 * codigo.
+		 */
 		boolean opcionCorrecta = false;
 		do {
 			try {
@@ -319,7 +326,6 @@ public class GestorOrdenadores {
 			}
 		} while (!opcionCorrecta);
 
-		// creacion del usuario
 		listaUsuarios.add(nuevoUsuario);
 		System.out.println("Usuario añadido correctamente");
 	}
@@ -827,7 +833,7 @@ public class GestorOrdenadores {
 			}
 		}
 		if (!usuarioExiste) {
-			System.out.println("No existe ningun usuario con el ID [" + idUsuario);
+			System.out.println("No existe ningun usuario con el ID [ " + idUsuario + " ]");
 		}
 	}
 
@@ -940,8 +946,19 @@ public class GestorOrdenadores {
 	 * Asignacion de un ordenador a un usuario
 	 */
 	public void asignarOrdenadorAUsuario() {
-		System.out.print("ID del usuario: ");
-		int usuarioid = input.nextInt();
+		boolean idcorrecto = false;
+		int usuarioid = 0;
+		do {
+			try {
+				System.out.print("ID del usuario: ");
+				usuarioid = input.nextInt();
+				idcorrecto = true;
+				input.nextLine();
+			} catch (InputMismatchException e) {
+				System.out.println("Error: debes introducir un numero");
+				input.nextLine();
+			}
+		} while (!idcorrecto);
 		System.out.print("Etiqueta del ordenador a asignar: ");
 		String etiquetaPC = input.nextLine();
 
@@ -954,13 +971,15 @@ public class GestorOrdenadores {
 		Ordenadores pc = buscarOrdenadorPorEtiqueta(etiquetaPC);
 
 		if (user != null && pc != null) {
+			desasignarOrdenadorDeUsuarios(pc);
 			user.setOrdenador(pc);
 			/**
 			 * Asignamos el objeto Ordenadores al atributo del objeto Usuarios si el usuario
-			 * y el pc introducidos por teclado existen
+			 * y el pc introducidos por teclado existen. Se le desasigna al usuario que lo utilizaba antes.
 			 * 
 			 */
-			System.out.println("El ordenador [" + etiquetaPC + "] ha sido asignado a " + usuarioid);
+			System.out.println("El ordenador [" + etiquetaPC + "] ha sido asignado al usuario " + user.getNombre() + " "
+					+ user.getApellidos());
 		} else {
 			System.out.println("Error: No se encontró el usuario o el ordenador.");
 		}
