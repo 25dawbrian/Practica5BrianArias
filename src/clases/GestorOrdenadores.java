@@ -510,6 +510,7 @@ public class GestorOrdenadores {
 			try {
 				System.out.print("Cantidad de pulgadas de la pantalla: ");
 				pulgadas = input.nextInt();
+				input.nextLine();
 				pulgadasCorrectas = true;
 			} catch (InputMismatchException e) {
 				System.out.println("Error: debes introducir numeros.");
@@ -521,21 +522,41 @@ public class GestorOrdenadores {
 		boolean autonomiaCorrecta = false;
 		do {
 			try {
-				System.out.println("Tiempo de autonomía (horas): ");
+				System.out.print("Tiempo de autonomía (horas): ");
 				autonomia = input.nextInt();
+				input.nextLine();
 				autonomiaCorrecta = true;
 			} catch (InputMismatchException e) {
 				System.out.println("Error: debes introducir numeros.");
 				input.nextLine();
 			}
 		} while (!autonomiaCorrecta);
-		boolean webcam = true;
+		
+		boolean webcam = false;
+		String respuestaWebcam;
+		boolean respuestaCorrecta = false;
+		do {
+			System.out.print("¿Tiene webcam? (Si/No): ");
+			respuestaWebcam = input.nextLine();
+			if (respuestaWebcam.equalsIgnoreCase("Si")) {
+				webcam = true;
+				respuestaCorrecta = true;
+			} else if (respuestaWebcam.equalsIgnoreCase("No")) {
+				webcam = false;
+				respuestaCorrecta = true;
+			} else {
+				System.out.println("Error: debes escribir Si o No");
+			}
+
+		} while (!respuestaCorrecta);
 
 		OrdenadorPortatil nuevoOrdenadorPortatil = new OrdenadorPortatil(generales.getTipoOrdenador(),
 				generales.getModelo(), generales.getProcesador(), generales.getTarjetaGrafica(),
 				generales.getCapacidadMemoriaRAM(), generales.getAlmacenamiento(), generales.getNumeroSerie(),
 				generales.getEtiqueta(), pulgadas, autonomia, webcam);
 		listaOrdenadores.add(nuevoOrdenadorPortatil);
+		System.out.println("Ordenador añadido correctamente");
+		System.out.println();
 	}
 
 	/**
