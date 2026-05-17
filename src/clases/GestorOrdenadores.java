@@ -77,9 +77,14 @@ public class GestorOrdenadores {
 				System.out.print("Introduce el ID del usuario: ");
 				idUsuario = input.nextInt();
 				input.nextLine();
-				idCorrecto = true;
+				if (existeIdUsuario(idUsuario)) {
+					System.out.println("Error: el ID ya existe.");
+					idCorrecto = false;
+				} else {
+					idCorrecto = true;
+				}
 			} catch (InputMismatchException e) {
-				System.err.println("Error: debes introducir un numero");
+				System.out.println("Error: debes introducir un numero.");
 				input.nextLine();
 			}
 		} while (!idCorrecto);
@@ -222,6 +227,7 @@ public class GestorOrdenadores {
 		System.out.println("Usuario añadido correctamente");
 	}
 
+	
 	/**
 	 * Alta usuario por codigo
 	 * 
@@ -253,8 +259,11 @@ public class GestorOrdenadores {
 			etiqueta = input.nextLine();
 			etiquetaCorrecta = Ordenadores.validarEtiqueta(etiqueta, prefijo);
 			if (!etiquetaCorrecta) {
-				System.err.println("Formato incorrecto: prefijo / año de alta / numero de tres digitos");
+				System.out.println("Formato incorrecto.");
 				System.out.println("Ejemplo valido: " + prefijo + "/2025/001");
+			} else if (existeEtiqueta(etiqueta)) {
+				System.out.println("Error: la etiqueta ya existe.");
+				etiquetaCorrecta = false;
 			}
 		} while (!etiquetaCorrecta);
 
@@ -265,8 +274,11 @@ public class GestorOrdenadores {
 			numeroSerie = input.nextLine();
 			numeroSerieCorrecta = Ordenadores.validarNumeroSerie(numeroSerie);
 			if (!numeroSerieCorrecta) {
-				System.err.println("Formato incorrecto: 3 numeros y 3 letras");
+				System.out.println("Formato incorrecto.");
 				System.out.println("Ejemplo valido: 123ABC");
+			} else if (existeNumeroSerie(numeroSerie)) {
+				System.out.println("Error: el numero de serie ya existe.");
+				numeroSerieCorrecta = false;
 			}
 		} while (!numeroSerieCorrecta);
 
@@ -306,6 +318,7 @@ public class GestorOrdenadores {
 			try {
 				System.out.print("Cantidad de almacenamiento (GB): ");
 				almacenamiento = input.nextInt();
+				input.nextLine();
 				almacenamientoCorrecto = true;
 			} catch (InputMismatchException e) {
 				System.err.println("Error: debes introducir numeros");
@@ -416,6 +429,8 @@ public class GestorOrdenadores {
 				generales.getCapacidadMemoriaRAM(), generales.getAlmacenamiento(), generales.getNumeroSerie(),
 				generales.getEtiqueta(), tipoCaja);
 		listaOrdenadores.add(nuevoOrdenadorSobremesa);
+		System.out.println("Ordenador añadido correctamente");
+		System.out.println();
 	}
 
 	/**
@@ -442,7 +457,7 @@ public class GestorOrdenadores {
 		boolean pulgadasCorrectas = false;
 		do {
 			try {
-				System.out.println("Cantidad de pulgadas de la pantalla: ");
+				System.out.print("Cantidad de pulgadas de la pantalla: ");
 				pulgadas = input.nextInt();
 				pulgadasCorrectas = true;
 			} catch (InputMismatchException e) {
@@ -855,6 +870,50 @@ public class GestorOrdenadores {
 		}
 	}
 
+	
+	
+	/**
+	 * Metodo para comprobar que existe la etiqueta del ordenador al
+	 * darlo de alta
+	 * @param etiqueta
+	 * @return
+	 */
+	public boolean existeEtiqueta(String etiqueta) {
+		for (Ordenadores ordenador : listaOrdenadores) {
+			if (ordenador.getEtiqueta().equalsIgnoreCase(etiqueta)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Metodo para comprobar que existe el numero de serie del ordenador al darlo de alta
+	 * @param numeroSerie
+	 * @return
+	 */
+	public boolean existeNumeroSerie(String numeroSerie) {
+		for (Ordenadores ordenador : listaOrdenadores) {
+			if (ordenador.getNumeroSerie().equalsIgnoreCase(numeroSerie)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
+	 * Metodo para comprobar que existe el ID del usuario al darlo de alta
+	 * @param idUsuario
+	 * @return
+	 */
+	public boolean existeIdUsuario(int idUsuario) {
+		for (Usuarios usuario : listaUsuarios) {
+			if (usuario.getIdUsuario() == idUsuario) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Asignacion de un ordenador a un usuario
 	 */
@@ -884,5 +943,4 @@ public class GestorOrdenadores {
 			System.out.println("Error: No se encontró el usuario o el ordenador.");
 		}
 	}
-
 }
