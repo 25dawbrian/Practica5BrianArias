@@ -705,8 +705,19 @@ public class GestorOrdenadores {
 	 * 
 	 */
 	public void buscarUsuarioID() {
-		System.out.print("Introduce el ID del usuario: ");
-		int idBuscar = input.nextInt();
+		int idBuscar = 0;
+		boolean idcorrecto = false;
+		do {
+			try {
+				System.out.print("Introduce el ID del usuario: ");
+				idBuscar = input.nextInt();
+				idcorrecto = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Error: debes introducir numeros");
+				input.nextLine();
+			}
+		} while (!idcorrecto);
+
 		boolean idEncontrado = false;
 		for (Usuarios usu : listaUsuarios) {
 			if (usu.getIdUsuario() == idBuscar) {
@@ -816,8 +827,19 @@ public class GestorOrdenadores {
 	 */
 
 	public void darDeBajaUsuario() {
-		System.out.print("Introduce el ID del usuario que quieras dar de baja: ");
-		int idUsuario = input.nextInt();
+		int idUsuario = 0;
+		boolean idCorrecto = false;
+		do {
+			try {
+				System.out.print("Introduce el ID del usuario que quieras dar de baja: ");
+				idUsuario = input.nextInt();
+				idCorrecto = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Error: debes introducir metodos");
+				input.nextLine();
+			}
+		} while (!idCorrecto);
+
 		boolean usuarioExiste = false;
 		Iterator<Usuarios> iteradorUsuarios = listaUsuarios.iterator();
 		while (iteradorUsuarios.hasNext()) {
@@ -975,7 +997,8 @@ public class GestorOrdenadores {
 			user.setOrdenador(pc);
 			/**
 			 * Asignamos el objeto Ordenadores al atributo del objeto Usuarios si el usuario
-			 * y el pc introducidos por teclado existen. Se le desasigna al usuario que lo utilizaba antes.
+			 * y el pc introducidos por teclado existen. Se le desasigna al usuario que lo
+			 * utilizaba antes.
 			 * 
 			 */
 			System.out.println("El ordenador [" + etiquetaPC + "] ha sido asignado al usuario " + user.getNombre() + " "
