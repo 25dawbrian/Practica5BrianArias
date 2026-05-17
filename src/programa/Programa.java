@@ -17,6 +17,7 @@ public class Programa {
 
 		/**
 		 * Carga de datos iniciales :
+		 * Menu principal con las difentes funcionalidades.
 		 */
 		gestor.datosIniciales();
 
@@ -89,7 +90,18 @@ public class Programa {
 					gestor.asignarOrdenadorAUsuario();
 					break;
 				case 10:
-					System.out.println("Has salido del gestor del inventario");
+					System.out.println("=========================================");
+					System.out.println("   _____ _____ _____ ");
+					System.out.println("  |_   _|_   _/ ____|");
+					System.out.println("    | |   | || |     ");
+					System.out.println("    | |   | || |     ");
+					System.out.println("   _| |_ _| || |____ ");
+					System.out.println("  |_____|_____\\____|");
+					System.out.println();
+					System.out.println(" Inventario IT cerrado correctamente");
+					System.out.println(" Hasta la proxima.");
+					System.out.println("=========================================");
+					break;
 				default:
 					System.out.println("Opcion no contemplada");
 					break;
